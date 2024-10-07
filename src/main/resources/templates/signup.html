@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style1.css" />
+    <title>Sign Up</title>
+    <style>
+        .signup-container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        table {
+            border-collapse: separate;
+            border-spacing: 0 10px;
+            width:600px;
+        }
+        td {
+            text-align:left;
+            padding: 5px;
+        }
+        input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+
+        }
+        button {
+            background-color: #28A745;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .login-link {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
+        .login-link a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+        .brand-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px;
+        }
+        .logo {
+            width: 50px;
+            height: auto;
+            margin-right: 10px;
+        }
+        .brand-name {
+            font-size: 2rem;
+            color: #333;
+        }
+        .error-message {
+            color: red;
+            font-size: 12px;
+            display: none; /* Hide by default */
+
+        }
+        .radio-group, .checkbox-group {
+            margin: 10px 0;
+        }
+        .radio-group label, .checkbox-group label {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="video-container">
+    <video src="../images/video1.mp4" autoplay muted loop></video>
+</div>
+
+
+<audio id="my_audio" src="../images/audio.mp3" loop="loop"></audio>
+
+<div class="showcase">
+    <div class="signup-container">
+        <div class="brand-container">
+            <img class="logo" src="../images/logo.jpg" alt="Furniture Haven" />
+            <h1 class="brand-name">Furniture Haven</h1>
+        </div>
+        <h2>Create Account</h2>
+        <form id="signupForm" th:action="@{/signup}" th:object="${customer}" method="post">
+            <table>
+                <tr>
+                    <td><label for="username">Username:</label></td>
+                    <td><input type="text" id="username" th:field="*{name}" name="signup-username" required></td>
+                </tr>
+                <tr>
+                    <td><label for="email">Email:</label></td>
+                    <td>
+                        <input type="email" id="email" th:field="*{email}" name="email" required>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="password">Password:</label></td>
+                    <td>
+                        <input type="password" id="password" th:field="*{password}" name="signup-password" required>
+
+
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="confirm-password">Confirm Password:</label></td>
+                    <td>
+                        <input type="password" id="confirm-password" name="confirm-password" required>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <select id="refer" name="refer" style="font-family: Arial, sans-serif;">
+                            <option value="" disabled selected>How did you hear about us?</option>
+                            <option value="facebook">Facebook</option>
+                            <option value="linkedin">Linkedin</option>
+                            <option value="google">Google</option>
+                        </select>
+                        <div class="error-message" id="referError">Please select how you heard about us.</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label>Preferred Contact:</label></td>
+                    <td>
+                        <div class="radio-group">
+                            <input type="radio" id="contact-email" name="preferred-contact" value="email" checked>
+                            <label for="contact-email">Email</label>
+                            <input type="radio" id="contact-phone" name="preferred-contact" value="phone">
+                            <label for="contact-phone">Phone</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="newsletter" name="newsletter">
+                            <label for="newsletter">Subscribe to our newsletter</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center;">
+                        <button type="submit">Sign Up</button>
+                    </td>
+                </tr>
+
+            </table>
+        </form>
+        <div class="login-link">
+            Already have an account? <a th:href="@{/login}">Log in</a>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+</body>
+</html>

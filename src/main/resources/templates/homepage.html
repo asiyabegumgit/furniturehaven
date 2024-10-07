@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Moderustic:wght@300..800&display=swap"
+      rel="stylesheet"
+    />
+    <title>Landing Page</title>
+  </head>
+  <body>
+    <header>
+      <nav class="nav-bar">
+        <div class="brand-container">
+          <img class="logo" src="../images/logo.jpg" alt="Furniture Haven" />
+          <h1 class="brand-name">Furniture Haven</h1>
+        </div>
+            
+        <ul>
+            <div class="search">       
+        <input type="text" placeholder="Search...">
+            <a href="#"><i class="fa fa-search icon-search"></i></a>
+         </div>
+          <li><a class="nav-link" href="">FAQ</a></li>
+          
+          <li><a class="nav-link" href=""><img
+            class="shopping-cart"
+            src="../images/user-login.png"
+            alt="Sign in"
+        /></a></li>
+          
+          <li>
+            <a href=""
+              ><img
+                class="shopping-cart"
+                src="../images/shopping-bag.png"
+                alt="shopping-bag"
+            /></a>
+           
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <!---->
+<section class="content">
+    <div class="hero">
+      <div class="hero-text">
+        <h1>The best furnitures in town!</h1>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni cumque
+          quas facere quae officiis debitis iusto et ullam similique fugit
+          excepturi ipsam consectetur, voluptatem at eveniet, fuga cum labore
+          vero!
+        </p>
+        <button>Shop Now</button>
+      </div>
+    </div>
+
+    
+    <!--Category-->
+    <section class="best-sellers">
+      <h3>SHOP BY CATEGORY</h3>
+
+      <div class="best-sellers-grid">
+        <!-- category 1-->
+        <div class="product-card">
+          <div class="product-image">
+            <img src="../images/livingrooms.jpg" alt="Shoe 1" />
+          </div>
+          <p class="product-name">LIVING ROOMS</p>
+          
+        </div>
+        <!-- category 2-->
+
+        <div class="product-card">
+          <div class="product-image">
+            <a th:href="@{/products}"><img src="../images/diningrooms.jpg" alt="Dining Rooms" /></a>
+          </div>
+          <p class="product-name">DINING ROOMS</p>
+         
+        </div>
+
+        <!-- category 3-->
+
+        <div class="product-card">
+          <div class="product-image">
+            <img src="../images/bedrooms.jpg" alt="Shoe 1" />
+          </div>
+          <p class="product-name">BED ROOMS</p>
+         
+        </div>
+<!-- category 3-->
+
+<div class="product-card">
+    <div class="product-image">
+      <img src="../images/kitchen.jpg" alt="Shoe 1" />
+    </div>
+    <p class="product-name">KITCHEN</p>
+   
+  </div>
+<!-- category 3-->
+
+<div class="product-card">
+    <div class="product-image">
+      <img src="../images/patios.jpg" alt="Shoe 1" />
+    </div>
+    <p class="product-name">PATIOS</p>
+   
+  </div>
+<!-- category 3-->
+
+<div class="product-card">
+    <div class="product-image">
+      <img src="../images/mattresses.jpg" alt="Shoe 1" />
+    </div>
+    <p class="product-name">MATTRESSES</p>
+   
+  </div>
+<!-- category 3-->
+
+<div class="product-card">
+    <div class="product-image">
+      <img src="../images/kids_teens.jpg" alt="Shoe 1" />
+    </div>
+    <p class="product-name">KIDS & TEENS</p>
+   
+  </div>
+
+        <!-- category 4-->
+
+        <div class="product-card">
+          <div class="product-image">
+            <img src="../images/decor_pillows.jpg" alt="Shoe 1" />
+          </div>
+          <p class="product-name">DECOR & PILLOWS</p>
+          
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery -->
+
+    <section class="gallery">
+      <h3>Explore our gallery</h3>
+      <div class="gallery-grid">
+        <div class="img1">
+          <img src="../images/gallery4.jpg" alt="" />
+          <p class="overlay">Lorem ipsum dolor sit.</p>
+        </div>
+        <div class="img2">
+          <img src="../images/gallery1.jpg" alt="" />
+          <p class="overlay">Lorem ipsum dolor sit.</p>
+        </div>
+        <div class="img3">
+          <img src="../images/gallery2.jpg" alt="" />
+          <p class="overlay">Lorem ipsum dolor sit.</p>
+        </div>
+        <div class="img4">
+          <img src="../images/gallery3.jpg" alt="" />
+          <p class="overlay">Lorem ipsum dolor sit.</p>
+        </div>
+        <div class="img5">
+          <img src="../images/gallery5.jpg" alt="" />
+          <p class="overlay">Lorem ipsum dolor sit.</p>
+        </div>
+      </div>
+    </section>
+</section>
+    <!-- Footer Section -->
+    <footer class="site-footer">
+      <div class="footer-container">
+        <div class="footer-column">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="">About us</a></li>
+            <li><a href="">Our services</a></li>
+            <li><a href="">Privacy policy</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="">FAQ</a></li>
+            <li><a href="">Contact us</a></li>
+            <li><a href="">Shipping</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Follow us</h4>
+          <ul class="social-links">
+            <li>
+              <img src="../images/facebook.png" alt="logo" />
+              <a href="">Facebook</a>
+            </li>
+            <li>
+              <img src="../images/instagram.png" alt="logo" />
+              <a href="">Instagram</a>
+            </li>
+            <li>
+              <img src="../images/twitter.png" alt="logo" />
+              <a href="">Twitter</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
