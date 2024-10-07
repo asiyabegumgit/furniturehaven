@@ -14,9 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class AuthController {
 
     @Autowired
-    private CustomerService userService;
-    @Autowired
     private CustomerService customerService;
+
     // Show the login form
     @GetMapping("/login")
     public String showLoginForm() {
@@ -35,11 +34,11 @@ public class AuthController {
     }
 
     // Handle registration form submission
-    @PostMapping("/register")
-    public String registerUser(@ModelAttribute("customer") Customer customer) {
+    @PostMapping("/signup")
+    public String saveCustomer(@ModelAttribute("customer") Customer customer) {
         // Assign the role based on the form selection (either CUSTOMER or ADMIN)
-        customer.setRole(Role.CUSTOMER);
-        userService.saveCustomer(customer);// Save the user with their selected role
+
+        customerService.saveCustomer(customer);// Save the user with their selected role
         return "redirect:/login";  // Redirect to the login page
     }
 

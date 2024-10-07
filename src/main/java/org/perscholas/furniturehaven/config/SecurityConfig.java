@@ -22,7 +22,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests(authorizeRequests -> authorizeRequests
-                        .requestMatchers("/css/**", "/js/**", "/images/**", "/login", "/register").permitAll()  // Public access
+                        .requestMatchers("/css/**", "/js/**", "/images/**", "/login", "/signup").permitAll()  // Public access
                         .requestMatchers("/homepage").hasAnyRole("CUSTOMER","ADMIN")  // Employee task hub
                         .requestMatchers("/homepage/**").hasAnyRole("CUSTOMER","ADMIN")  // Admin-only access for managing employees
                         .requestMatchers("/products/**").hasAnyRole("ADMIN","CUSTOMER")  // Admin-only access for managing tasks

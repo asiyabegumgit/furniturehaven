@@ -30,10 +30,10 @@ public class CustomerService {
                 .orElseThrow(() -> new RuntimeException("Customer not found"));
     }
 
-    public void saveCustomer(Customer user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+    public void saveCustomer(Customer customer) {
+        customer.setPassword(passwordEncoder.encode(customer.getPassword()));
 
-        customerRepository.save(user);
+        customerRepository.save(customer);
     }
 
     public Optional<Customer> findByEmail(String username) {

@@ -8,7 +8,7 @@ import java.util.List;
 @Entity
 @Data
 public class Customer extends User{
-    @Id
+   /* @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
@@ -20,6 +20,11 @@ public class Customer extends User{
     private boolean subscribedToNewsletter;
     @Enumerated
     private Role role;
-    @OneToMany(mappedBy = "customer" , cascade = CascadeType.ALL)
-    private List<Cart> carts;
+    @OneToOne(mappedBy = "customer" , cascade = CascadeType.ALL)
+    private Cart cart;*/
+
+    public Customer() {
+        super();
+        setRole(Role.CUSTOMER);
+    }
 }
