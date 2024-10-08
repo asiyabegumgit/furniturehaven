@@ -1,11 +1,15 @@
 package org.perscholas.furniturehaven.controller;
 
+import org.perscholas.furniturehaven.model.Customer;
 import org.perscholas.furniturehaven.model.Product;
 import org.perscholas.furniturehaven.model.User;
 import org.perscholas.furniturehaven.service.CustomerService;
 import org.perscholas.furniturehaven.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -42,8 +46,12 @@ public class ProductController {
         Optional<Product> product=productService.findById(id);
         if(product.isPresent()) {
             model.addAttribute("product", product.get());
-            System.out.println("product-->"+product.get()+"--->"+customerService.getCurrentCustomer());
-            model.addAttribute("customer",customerService.getCurrentCustomer());
+            Optional<Customer> customer = getCurrentCustomer();
+            System.out.println("------------------->"+customer.get().getName());
+            if(customer.isPresent()) {
+                model.addAttribute("customer", customer.get());
+            }
+
         }
         else{
             return "redirect:/products";
@@ -92,5 +100,17 @@ public class ProductController {
             }
         }
         return products;
+    }
+    public Optional<Customer> getCurrentCustomer()
+    {
+        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+        System.out.println(authentication.getPrincipal());
+        String userName = ((UserDetails)authentication.getPrincipal()).getUsername();
+        System.out.println(userName);
+        System.out.println("*******************");
+
+        if(authentication!=null && authentication.getPrincipal()!=null)
+            return customerService.findByUsername(userName);
+        return null;
     }
 }

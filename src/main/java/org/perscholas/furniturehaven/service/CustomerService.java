@@ -30,10 +30,13 @@ public class CustomerService {
                 .orElseThrow(() -> new RuntimeException("Customer not found"));
     }
 
-    public void saveCustomer(Customer customer) {
+    public Customer saveCustomer(Customer customer) {
         customer.setPassword(passwordEncoder.encode(customer.getPassword()));
-
-        customerRepository.save(customer);
+        System.out.println("customer"+customer);
+        return customerRepository.save(customer);
+    }
+    public Optional<Customer> findByUsername(String username) {
+        return customerRepository.findByUsername(username);
     }
 
     public Optional<Customer> findByEmail(String username) {
@@ -43,11 +46,5 @@ public class CustomerService {
     public void deleteEmployee(Long id) {
         customerRepository.deleteById(id);
     }
-    public Optional<Customer> getCurrentCustomer()
-    {
-        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
-        if(authentication!=null && authentication.getPrincipal()!=null)
-            return customerRepository.findByUsername(authentication.getPrincipal().toString());
-        return null;
-    }
+    
 }

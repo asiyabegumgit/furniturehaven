@@ -17,23 +17,20 @@ import java.util.Optional;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
-    private UserRepository userRepository;
+    private CustomerRepository customerRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // Fetch the user from the repository
 
-        org.perscholas.furniturehaven.model.User user = userRepository.findByUsername(username).orElseThrow(()->new UsernameNotFoundException("Customer not found with username: " + username));
+        Optional<Customer> optionalCustomer = customerRepository.findByUsername(username);
 
+        if (optionalCustomer.isPresent()) {
+            return new User(optionalCustomer.get().getUsername(),optionalCustomer.get().getPassword(),Collections.singleton(new SimpleGrantedAuthority("ROLE_CUSTOMER")));
 
+        }
         // Manually prefix the role with 'ROLE_' if it's not already prefixed
-
-        String role = user.getRole().name();
-        String roleWithPrefix = "ROLE_" + role;
-        System.out.println("-->"+role);
-        // Return the user details with prefixed role
-        return new User(user.getUsername(), user.getPassword(),
-                Collections.singletonList(new SimpleGrantedAuthority(roleWithPrefix)));
+        throw new UsernameNotFoundException("Customer not found");
     }
 
 }

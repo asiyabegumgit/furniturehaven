@@ -23,7 +23,7 @@ public class AuthController {
     }
     @GetMapping("/homepage")
     public String showHomePage(Model model) {
-        model.addAttribute("customer", customerService.getCurrentCustomer());
+
         return "homepage";
     }
     // Show the registration page

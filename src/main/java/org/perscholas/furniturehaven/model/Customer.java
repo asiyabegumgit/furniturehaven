@@ -7,6 +7,8 @@ import java.util.List;
 
 @Entity
 @Data
+@DiscriminatorValue("CUSTOMER")
+
 public class Customer extends User{
    /* @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
