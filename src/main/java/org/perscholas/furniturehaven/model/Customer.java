@@ -21,9 +21,10 @@ public class Customer extends User{
     private String preferredContact;
     private boolean subscribedToNewsletter;
     @Enumerated
-    private Role role;
+    private Role role;*/
+
     @OneToOne(mappedBy = "customer" , cascade = CascadeType.ALL)
-    private Cart cart;*/
+    private Cart cart;
 
     public Customer() {
         super();

@@ -18,6 +18,7 @@ public class Product {
     private String image;
     private String category;
     private String brand;
+    private String rating;
     @Column(name = "created_at", updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;

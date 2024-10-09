@@ -145,16 +145,19 @@
                 <button class="quantity-btn" onclick="increaseQuantity()">+</button>
             </div>
             <form th:action="@{/add-cart}" method="post">
-                <input type="hidden" name="productId" th:value="${product.id}">
-                <input type="hidden" name="customerId" th:value="${customer.id}">
-                <input type="hidden" name="quantity" id="form=quantity" value="1">
-            <button class="add-to-cart-btn" type="submit">Add to Cart</button>
+                <input type="hidden" name="productId" th:value="${product.id}"/>
+                <input type="hidden" name="customerId" th:value="${customer.id}"/>
+                <input type="hidden" name="quantity" id="form-quantity" value="1"/>
+                <button class="add-to-cart-btn" type="submit">
+                    Add TO Cart
+                </button>
             </form>
         </div>
     </div>
 </div>
 
 <script>
+
     function decreaseQuantity() {
         var quantityInput = document.getElementById('quantity');
         var currentValue = parseInt(quantityInput.value);
@@ -171,7 +174,6 @@
 
 
 </script>
-
 <!-- Footer Section -->
 <footer class="site-footer">
     <div class="footer-container">

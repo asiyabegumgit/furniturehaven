@@ -3,6 +3,7 @@ package org.perscholas.furniturehaven.controller;
 import org.perscholas.furniturehaven.model.Customer;
 import org.perscholas.furniturehaven.model.Product;
 import org.perscholas.furniturehaven.model.User;
+import org.perscholas.furniturehaven.service.CartService;
 import org.perscholas.furniturehaven.service.CustomerService;
 import org.perscholas.furniturehaven.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,13 +30,12 @@ public class ProductController {
     private ProductService productService;
     @Autowired
     private CustomerService customerService;
+    @Autowired
+    private CartService cartService;
+
     @GetMapping("/products")
     public String viewAllProducts(@RequestParam(defaultValue = "0") int page,
                                   @RequestParam(defaultValue = "9") int size, Model model) {
-     /* List<Product> products=productService.findAll();
-      model.addAttribute("products", products);
-        return "products-list";
-    }*/
 
         Page<Product> productPage = productService.getProducts(page, size);
         model.addAttribute("products",productPage);
@@ -56,6 +56,7 @@ public class ProductController {
         else{
             return "redirect:/products";
         }
+
         return "product-detail";
     }
     @GetMapping("/products/upload")

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Cart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .back-to-shopping {
+            margin-bottom: 20px;
+        }
+        .back-to-shopping a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #2c3e50;
+            padding-bottom: 10px;
+        }
+        .cart-container {
+            display: flex;
+            gap: 30px;
+        }
+        .cart-items {
+            flex: 1;
+        }
+        .product-info {
+            display: flex;
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .product-image {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+        }
+        .product-details {
+            padding: 20px;
+            flex: 1;
+        }
+        .product-name {
+            font-size: 18px;
+            margin: 0 0 10px;
+            color: #2c3e50;
+        }
+        .product-rating {
+            color: #f39c12;
+            margin-bottom: 10px;
+        }
+        .product-price {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .quantity-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .quantity-input {
+            width: 40px;
+            text-align: center;
+            margin: 0 10px;
+        }
+        .remove-btn {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .order-summary {
+            width: 300px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .order-summary h2 {
+            color: #2c3e50;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        .order-summary p {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .checkout-btn {
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+        .checkout-btn:hover {
+            background-color: #27ae60;
+        }
+    </style>
+</head>
+<body>
+<div class="back-to-shopping">
+    <a href="/products">← Back To Shopping</a>
+</div>
+<h1>My Cart</h1>
+<div class="cart-container">
+    <div class="cart-items">
+        <div class="product-info" th:each="item, iterStat : ${cart.items}">
+            <img class="product-image" th:src="${item.product.image}" alt="Product Image">
+            <div class="product-details">
+                <h2 class="product-name" th:text="${item.product.name}"></h2>
+                <p class="product-rating">
+                    <span th:each="star : ${#numbers.sequence(1, item.product.rating)}" th:text="'★'"></span>
+                </p>
+                <p class="product-price" th:text="'$' + ${item.product.price}"></p>
+                <div class="quantity-control">
+                    <button class="quantity-btn" th:onclick="'decreaseQuantity(\'quantity-input-' + ${iterStat.index} + '\')'">-</button>
+                    <input type="number" th:id="'quantity-input-' + ${iterStat.index}" class="quantity-input" th:value="${item.quantity}" min="1">
+                    <button class="quantity-btn" th:onclick="'increaseQuantity(\'quantity-input+' + ${iterStat.index} + '\')'">-</button>
+                </div>
+                <button class="remove-btn">Remove</button>
+            </div>
+        </div>
+    </div>
+    <div class="order-summary">
+        <h2>Order Summary</h2>
+        <p><span>Item Subtotal</span> <span th:text="'$' + ${cart.totalPrice}"></span></p>
+        <p><span>Estimated Tax</span> <span th:text="'$' + ${#numbers.formatDecimal(cart.totalPrice * 0.10, 1, 2)}"></span></p>
+        <p><span>Total</span> <span th:text="'$' + ${#numbers.formatDecimal(cart.totalPrice + (cart.totalPrice * 0.10), 1, 2)}"></span></p>
+        <button class="checkout-btn">Proceed to Checkout</button>
+    </div>
+</div>
+<script>
+    function decreaseQuantity(inputId) {
+        const quantityInput = document.getElementById(inputId);
+        let quantity = parseInt(quantityInput.value);
+        if (quantity > 1) {
+            quantityInput.value = quantity - 1;
+        }
+    }
+
+    function increaseQuantity(inputId) {
+        const quantityInput = document.getElementById(inputId);
+        let quantity = parseInt(quantityInput.value);
+        if (!isNaN(quantity)) {
+            quantityInput.value = quantity + 1;
+        }
+    }
+</script>
+</body>
+</html>
