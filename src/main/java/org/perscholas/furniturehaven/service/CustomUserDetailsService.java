@@ -29,6 +29,7 @@ public class CustomUserDetailsService implements UserDetailsService {
             return new User(optionalCustomer.get().getUsername(),optionalCustomer.get().getPassword(),Collections.singleton(new SimpleGrantedAuthority("ROLE_CUSTOMER")));
 
         }
+
         // Manually prefix the role with 'ROLE_' if it's not already prefixed
         throw new UsernameNotFoundException("Customer not found");
     }

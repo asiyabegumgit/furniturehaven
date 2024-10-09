@@ -24,16 +24,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-
+@RequestMapping("/products")
 public class ProductController {
     @Autowired
     private ProductService productService;
-    @Autowired
-    private CustomerService customerService;
-    @Autowired
-    private CartService cartService;
 
-    @GetMapping("/products")
+
+
+    @GetMapping
     public String viewAllProducts(@RequestParam(defaultValue = "0") int page,
                                   @RequestParam(defaultValue = "9") int size, Model model) {
 
@@ -41,30 +39,30 @@ public class ProductController {
         model.addAttribute("products",productPage);
         return"products-list"; // Thymeleaf template name
     }
-    @GetMapping("/products/{id}")
+    @GetMapping("/{id}")
     public String viewProduct(@PathVariable Long id, Model model) {
         Optional<Product> product=productService.findById(id);
         if(product.isPresent()) {
             model.addAttribute("product", product.get());
-            Optional<Customer> customer = getCurrentCustomer();
-            System.out.println("------------------->"+customer.get().getName());
-            if(customer.isPresent()) {
+            //Optional<Customer> customer = getCurrentCustomer();
+
+            /*if(customer.isPresent()) {
                 model.addAttribute("customer", customer.get());
             }
 
-        }
+        }*/}
         else{
             return "redirect:/products";
         }
 
         return "product-detail";
     }
-    @GetMapping("/products/upload")
+    @GetMapping("/upload")
     public String showProductUploadForm(Model model) {
         model.addAttribute("product", new Product());
         return "product-upload";
     }
-    @PostMapping("/products/upload")
+    @PostMapping("/upload")
     public String uploadProductsCSV(@RequestParam("file") MultipartFile file, Model model) {
         if (file.isEmpty()) {
             model.addAttribute("error", "Please select a file to upload");
@@ -102,16 +100,5 @@ public class ProductController {
         }
         return products;
     }
-    public Optional<Customer> getCurrentCustomer()
-    {
-        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
-        System.out.println(authentication.getPrincipal());
-        String userName = ((UserDetails)authentication.getPrincipal()).getUsername();
-        System.out.println(userName);
-        System.out.println("*******************");
 
-        if(authentication!=null && authentication.getPrincipal()!=null)
-            return customerService.findByUsername(userName);
-        return null;
-    }
 }

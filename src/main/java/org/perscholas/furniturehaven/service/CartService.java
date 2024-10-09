@@ -5,6 +5,7 @@ import org.perscholas.furniturehaven.model.Cart;
 import org.perscholas.furniturehaven.model.CartItem;
 import org.perscholas.furniturehaven.model.Customer;
 import org.perscholas.furniturehaven.model.Product;
+import org.perscholas.furniturehaven.repository.CartItemRepository;
 import org.perscholas.furniturehaven.repository.CartRepository;
 import org.perscholas.furniturehaven.repository.CustomerRepository;
 import org.perscholas.furniturehaven.repository.ProductRepository;
@@ -14,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -24,59 +26,74 @@ public class CartService {
     private CustomerRepository customerRepository;
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private CartItemRepository cartItemRepository;
 
     @Transactional
     public Cart addToCart(Long customerId, Long productId, int quantity) {
-        System.out.println("CustomerId***->" + customerId);
-        Optional<Cart> optionalCart= cartRepository.findByCustomerId(customerId);
-        Cart cart = optionalCart.orElseGet(Cart::new);
-        Optional<Product> product = productRepository.findById(productId);
-        CartItem existingItems = null;
-        if (product.isPresent()) {
-            existingItems = cart.getItems().stream().filter(item -> item.getProduct().getId().equals(productId)).findFirst().orElse(null);
-        }
-        if (existingItems != null) {
-            existingItems.setQuantity(existingItems.getQuantity() + quantity);
+        Cart cart = findByCustomerId(customerId);
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+
+        // Check if the product is already in the cart
+        Optional<CartItem> existingCartItem = cart.getItems().stream()
+                .filter(item -> item.getProduct().getId().equals(productId))
+                .findFirst();
+
+        if (existingCartItem.isPresent()) {
+            // Update quantity
+            CartItem cartItem = existingCartItem.get();
+            cartItem.setQuantity(cartItem.getQuantity() + quantity);
         } else {
-            CartItem newCartItem = new CartItem();
-            newCartItem.setCart(cart);
-            newCartItem.setQuantity(quantity);
-            newCartItem.setProduct(product.get());
-            newCartItem.setPrice(product.get().getPrice());
-            cart.getItems().add(newCartItem);
+            // Create new CartItem
+            CartItem cartItem = new CartItem();
+            cartItem.setProduct(product);
+            cartItem.setQuantity(quantity);
+            cartItem.setPrice(product.getPrice());
+            cartItem.setCart(cart);
+            cart.getItems().add(cartItem);
         }
-        cart.setCustomer(customerRepository.findById(customerId).get());
-        System.out.println("success");
-        updateCartTotals(cart);
 
-        return cartRepository.save(cart);
-
+        cart.calculateTotalPrice();
+         cartRepository.save(cart);
+        return cart;
     }
 
-    public Cart getCart(Long id) {
-        return cartRepository.findById(id).get();
-    }
+
 
     public Cart findByCustomerId(Long customerId) {
-       return cartRepository.findByCustomerId(customerId).get();
+        Customer customer = customerRepository.findById(customerId)
+                .orElseThrow(() -> new IllegalArgumentException("Customer not found"));
+
+        return cartRepository.findByCustomer(customer).orElseGet(() -> {
+            Cart newCart = new Cart();
+            newCart.setCustomer(customer);
+            return cartRepository.save(newCart);
+        });
 
     }
-    private void updateCartTotals(Cart cart) {
-        cart.calculateTotalPrice();
-    }
+
     public Cart updateItemQuantity(Long customerId, Long productId, int newQuantity) {
-        Cart cart = getCart(customerId);
+        Cart cart = findByCustomerId(customerId);
 
-        cart.getItems().stream()
+        CartItem itemToUpdate = cart.getItems().stream()
                 .filter(item -> item.getProduct().getId().equals(productId))
                 .findFirst()
-                .ifPresent(item -> item.setQuantity(newQuantity));
+                .orElse(null);
 
-        updateCartTotals(cart);
-        return cartRepository.save(cart);
+        if (itemToUpdate != null) {
+            itemToUpdate.setQuantity(newQuantity);
+            cart.calculateTotalPrice(); // Update total price
+            cartRepository.save(cart);   // Save the cart, which will also update CartItem
+        } else {
+            throw new NoSuchElementException("Item not found in cart for product ID: " + productId);
+        }
+
+        return cart;
     }
+
     public Cart removeItemFromCart(Long customerId, Long productId) {
-        Cart cart = getCart(customerId);
+        Cart cart = findByCustomerId(customerId);
 
         // Find the item in the cart
         Optional<CartItem> itemToRemove = cart.getItems().stream()
@@ -92,7 +109,8 @@ public class CartService {
             // cartItemRepository.delete(item); // Assuming you have a repository for CartItem
         }
 
-        updateCartTotals(cart);
-        return cartRepository.save(cart);
+        cart.calculateTotalPrice();
+        cartRepository.save(cart);
+        return cart;
     }
 }

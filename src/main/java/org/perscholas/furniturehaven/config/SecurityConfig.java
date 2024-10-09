@@ -22,10 +22,10 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests(authorizeRequests -> authorizeRequests
-                        .requestMatchers("/css/**", "/js/**", "/images/**", "/login", "/signup").permitAll()  // Public access
-                        .requestMatchers("/homepage").hasAnyRole("CUSTOMER","ADMIN")  // Employee task hub
-                        .requestMatchers("/homepage/**").hasAnyRole("CUSTOMER","ADMIN")  // Admin-only access for managing employees
-                        .requestMatchers("/products/**").hasAnyRole("ADMIN","CUSTOMER")  // Admin-only access for managing tasks
+                        .requestMatchers("/css/**", "/js/**", "/images/**", "/login", "/signup","/homepage","/products","/cart","/products/**").permitAll()  // Public access
+                        .requestMatchers("/homepage").hasAnyRole("CUSTOMER","ADMIN")
+                        .requestMatchers("/homepage/**").hasAnyRole("CUSTOMER","ADMIN")
+                        .requestMatchers("/cart/**").hasRole("CUSTOMER")
                         .anyRequest().authenticated())  // All other requests require authentication
 
                 .formLogin(formLogin -> formLogin
@@ -34,12 +34,13 @@ public class SecurityConfig {
                         .successHandler((request, response, authentication) -> {
                             authentication.getAuthorities().forEach(grantedAuthority -> {
                                 String role = grantedAuthority.getAuthority();
+
                                 try {
-                                    System.out.println("-------->"+role);
-                                    if (role.equals("ROLE_ADMIN")) {
+
+                                    if (role.equals("ROLE_GUEST")) {
                                         response.sendRedirect("/homepage");  // Admin redirect
                                     } else if (role.equals("ROLE_CUSTOMER")) {
-                                        System.out.println("-----in--->"+role);
+
 
                                         response.sendRedirect("/homepage");  // Employee redirect
                                     }

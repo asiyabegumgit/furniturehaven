@@ -18,13 +18,21 @@ public class Cart {
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CartItem> items = new ArrayList<>();
+    private double subtotal;
+    private double tax;
+    private double totalPriceWithTax;
 
-    private double totalPrice;
+    private static final double TAX_RATE = 0.1; // Example tax rate of 10%
 
     public void calculateTotalPrice() {
-        totalPrice = items.stream()
+        subtotal = items.stream()
                 .mapToDouble(CartItem::getTotalPrice)
                 .sum();
+
+        tax = subtotal * TAX_RATE; // Calculate tax
+        totalPriceWithTax = subtotal + tax; // Calculate total price including tax
     }
+
+
 
 }

@@ -139,40 +139,42 @@
             <h1 class="product-name" th:text="${product.name}"></h1>
             <p class="product-price" th:text="'$' + ${product.price}"></p>
             <p class="product-description" th:text="${product.description}"></p>
-            <div class="quantity-control">
-                <button class="quantity-btn" onclick="decreaseQuantity()">-</button>
-                <input type="number" id="quantity" class="quantity-input" value="1" min="1">
-                <button class="quantity-btn" onclick="increaseQuantity()">+</button>
-            </div>
-            <form th:action="@{/add-cart}" method="post">
+
+            <form th:action="@{/cart/add-cart}" method="post">
+                <button class="quantity-btn" id="quantity-btn-decrease" type="button">-</button>
                 <input type="hidden" name="productId" th:value="${product.id}"/>
-                <input type="hidden" name="customerId" th:value="${customer.id}"/>
-                <input type="hidden" name="quantity" id="form-quantity" value="1"/>
+
+                <input type="number" class="quantity-input" name="quantity" id="quantity-input" min="1" value="1"/>
+                <button class="quantity-btn" id="quantity-btn-increase" type="button">+</button>
                 <button class="add-to-cart-btn" type="submit">
-                    Add TO Cart
+                    Add To Cart
                 </button>
             </form>
+
         </div>
     </div>
 </div>
 
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const decreaseBtn = document.getElementById('quantity-btn-decrease');
+        const increaseBtn = document.getElementById('quantity-btn-increase');
+        const quantityInput = document.getElementById('quantity-input');
 
-    function decreaseQuantity() {
-        var quantityInput = document.getElementById('quantity');
-        var currentValue = parseInt(quantityInput.value);
-        if (currentValue > 1) {
-            quantityInput.value = currentValue - 1;
-        }
-    }
+        decreaseBtn.addEventListener('click', function(e) {
+            e.preventDefault(); // Prevent form submission
+            let currentValue = parseInt(quantityInput.value) || 1; // Default to 1 if NaN
+            if (currentValue > 1) {
+                quantityInput.value = currentValue - 1;
+            }
+        });
 
-    function increaseQuantity() {
-        var quantityInput = document.getElementById('quantity');
-        var currentValue = parseInt(quantityInput.value);
-        quantityInput.value = currentValue + 1;
-    }
-
-
+        increaseBtn.addEventListener('click', function(e) {
+            e.preventDefault(); // Prevent form submission
+            let currentValue = parseInt(quantityInput.value) || 1; // Default to 1 if NaN
+            quantityInput.value = currentValue + 1;
+        });
+    });
 </script>
 <!-- Footer Section -->
 <footer class="site-footer">

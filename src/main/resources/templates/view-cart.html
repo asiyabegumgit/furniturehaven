@@ -130,8 +130,10 @@
 </div>
 <h1>My Cart</h1>
 <div class="cart-container">
-    <div class="cart-items">
-        <div class="product-info" th:each="item, iterStat : ${cart.items}">
+    <!-- Check if the cart has items -->
+    <div class="cart-items" th:if="${cart.items.size()} > 0">
+
+        <div class="product-info" th:each="item, items : ${cart.items}">
             <img class="product-image" th:src="${item.product.image}" alt="Product Image">
             <div class="product-details">
                 <h2 class="product-name" th:text="${item.product.name}"></h2>
@@ -140,38 +142,32 @@
                 </p>
                 <p class="product-price" th:text="'$' + ${item.product.price}"></p>
                 <div class="quantity-control">
-                    <button class="quantity-btn" th:onclick="'decreaseQuantity(\'quantity-input-' + ${iterStat.index} + '\')'">-</button>
-                    <input type="number" th:id="'quantity-input-' + ${iterStat.index}" class="quantity-input" th:value="${item.quantity}" min="1">
-                    <button class="quantity-btn" th:onclick="'increaseQuantity(\'quantity-input+' + ${iterStat.index} + '\')'">-</button>
+
+                    <form th:action="@{/cart/update/{productId}(productId=${item.product.id})}" method="post">
+                        <button class="quantity-btn" type="submit" name="action" value="decrease" th:disabled="${item.quantity <= 1}">-</button>
+                        <input type="number" id="quantity" name="quantity" class="quantity-input" th:value="${item.quantity}" min="1"/>
+                        <button class="quantity-btn" type="submit" name="action" value="increase">+</button>
+                        <input type="hidden" name="productId" th:value="${item.product.id}" />
+                    </form>
                 </div>
-                <button class="remove-btn">Remove</button>
+                <form th:action="@{/cart/remove/{productId}(productId=${item.product.id})}" method="post">
+                    <button class="remove-btn" type="submit">Remove</button>
+                </form>
+
+
             </div>
         </div>
     </div>
     <div class="order-summary">
         <h2>Order Summary</h2>
-        <p><span>Item Subtotal</span> <span th:text="'$' + ${cart.totalPrice}"></span></p>
-        <p><span>Estimated Tax</span> <span th:text="'$' + ${#numbers.formatDecimal(cart.totalPrice * 0.10, 1, 2)}"></span></p>
-        <p><span>Total</span> <span th:text="'$' + ${#numbers.formatDecimal(cart.totalPrice + (cart.totalPrice * 0.10), 1, 2)}"></span></p>
+        <p><span>Item Subtotal</span> <span th:text="'$' + ${#numbers.formatDecimal(cart.subtotal, 1, 2)}"></span></p>
+        <p><span>Estimated Tax</span> <span th:text="'$' + ${#numbers.formatDecimal(cart.subtotal * 0.10, 1, 2)}"></span></p>
+        <p><span>Total</span> <span th:text="'$' + ${#numbers.formatDecimal(cart.subtotal + (cart.subtotal * 0.10), 1, 2)}"></span></p>
+        <form th:action="@{/cart/checkout}" method="post">
         <button class="checkout-btn">Proceed to Checkout</button>
+        </form>
     </div>
 </div>
-<script>
-    function decreaseQuantity(inputId) {
-        const quantityInput = document.getElementById(inputId);
-        let quantity = parseInt(quantityInput.value);
-        if (quantity > 1) {
-            quantityInput.value = quantity - 1;
-        }
-    }
 
-    function increaseQuantity(inputId) {
-        const quantityInput = document.getElementById(inputId);
-        let quantity = parseInt(quantityInput.value);
-        if (!isNaN(quantity)) {
-            quantityInput.value = quantity + 1;
-        }
-    }
-</script>
 </body>
 </html>
