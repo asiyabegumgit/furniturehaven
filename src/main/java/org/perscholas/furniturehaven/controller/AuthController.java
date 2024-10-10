@@ -21,10 +21,17 @@ public class AuthController {
     public String showLoginForm() {
         return "login";
     }
-    @GetMapping("/homepage")
+    // Show the landing page
+   @GetMapping({"/", "/homepage"})
     public String showHomePage(Model model) {
 
         return "homepage";
+    }
+    // Show the FAQ page
+    @GetMapping( "/faq")
+    public String showFAQPage(Model model) {
+
+        return "faq";
     }
     // Show the registration page
     @GetMapping("/signup")

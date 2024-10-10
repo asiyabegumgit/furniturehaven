@@ -33,6 +33,7 @@ public class CartController {
 
         Cart cart=cartService.findByCustomerId(customer.getId());
 
+
         model.addAttribute("cart", cart);
 
         return "view-cart";

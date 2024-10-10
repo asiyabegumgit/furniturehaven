@@ -18,42 +18,42 @@
     <title>Landing Page</title>
   </head>
   <body>
-    <header>
-      <nav class="nav-bar">
-        <div class="brand-container">
-          <img class="logo" src="../images/logo.jpg" alt="Furniture Haven" />
-          <h1 class="brand-name">Furniture Haven</h1>
-        </div>
-            
-        <ul>
-            <div class="search">       
-        <input type="text" placeholder="Search...">
-            <a href="#"><i class="fa fa-search icon-search"></i></a>
-         </div>
-          <li><a class="nav-link" href="">FAQ</a></li>
-          
-          <li><a class="nav-link" href=""><img
-            class="shopping-cart"
-            src="../images/user-login.png"
-            alt="Sign in"
-        /></a></li>
-          
-          <li>
-            <a href=""
-              ><img
-                class="shopping-cart"
-                src="../images/shopping-bag.png"
-                alt="shopping-bag"
-            /></a>
-           
-          </li>
-        </ul>
-      </nav>
-    </header>
+  <!--Header-->
+  <header>
+    <nav class="nav-bar">
+      <div class="brand-container">
+        <img class="logo" src="../images/logo.jpg" alt="Furniture Haven" />
+        <h1 class="brand-name">Furniture Haven</h1>
+      </div>
 
+      <ul>
+        <li>
+          <div class="search-container">
+            <form th:action="@{/products/search}" method="get">
+              <input type="text" id="search" placeholder="Search.." name="keyword">
+              <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+          </div>
+        </li>
+        <li><a class="nav-link" th:href="@{/homepage}">Home</a></li>
+        <li><a class="nav-link" th:href="@{/faq}">FAQ</a></li>
+        <li>
+          <a class="nav-link" th:href="@{/login}">
+            <img class="shopping-cart" src="../images/user-login.png" alt="User Login" />
+          </a>
+        </li>
+        <li>
+          <a class="nav-link" th:href="@{/cart}">
+            <img class="shopping-cart" src="../images/shopping-bag.png" alt="Shopping Bag" />
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+<!--Header ends-->
     <!---->
 <section class="content">
-    <div class="hero">
+ <div class="hero">
       <div class="hero-text">
         <h1>The best furnitures in town!</h1>
         <p>
@@ -214,5 +214,6 @@
         </div>
       </div>
     </footer>
+
   </body>
 </html>

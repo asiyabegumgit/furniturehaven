@@ -109,7 +109,7 @@
 
     <h3>Subtotal: <span th:text="'$' + ${#numbers.formatDecimal(cart.subtotal, 1, 2)}">Subtotal</span></h3>
     <h3>Tax: <span th:text="'$' + ${#numbers.formatDecimal(cart.tax, 1, 2)}">Tax</span></h3>
-    <h3>Total Price (including tax): <span th:text="'$' + ${#numbers.formatDecimal(cart.totalPriceWithTax, 1, 2)}">Total Price</span></h3>
+    <h3>Total Price (including tax): <span th:text="'$' + ${#numbers.formatDecimal(cart.totalPriceWithTax++, 1, 2)}">Total Price</span></h3>
 
     <!-- Print Receipt Button -->
     <button onclick="window.print()">Print Receipt</button>

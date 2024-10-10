@@ -29,7 +29,12 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-
+    @GetMapping("/search")
+    public String searchByKeyword(@RequestParam("keyword") String keyword, Model model) {
+        List<Product> productPage =  productService.searchByKeyword(keyword);
+        model.addAttribute("products",productPage);
+        return "products-list";
+    }
 
     @GetMapping
     public String viewAllProducts(@RequestParam(defaultValue = "0") int page,

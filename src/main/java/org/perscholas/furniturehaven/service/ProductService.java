@@ -26,6 +26,9 @@ public class ProductService {
         System.out.println("inside findAll method");
         return productRepository.findAll();
     }
+    public List<Product> searchByKeyword(String keyword) {
+        return productRepository.searchProducts(keyword);
+    }
     public Optional<Product> findById(Long id) {
         return productRepository.findById(id);
     }

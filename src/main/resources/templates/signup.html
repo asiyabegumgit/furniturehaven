@@ -4,9 +4,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/style1.css" />
+    <link rel="stylesheet" href="../css/style.css" />
     <title>Sign Up</title>
     <style>
+        .hero {
+            background-image: url(../images/hero1.jpg);
+            background-color: rgba(24, 23, 23, 0.8);
+            background-blend-mode: lighten;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            margin-bottom: 20px;
+            animation: heroBackgroundFade 25s ease-out infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
         .signup-container {
             background-color: white;
             padding: 2rem;
@@ -21,17 +38,16 @@
         table {
             border-collapse: separate;
             border-spacing: 0 10px;
-            width:600px;
+            width: 600px;
         }
         td {
-            text-align:left;
+            text-align: left;
             padding: 5px;
         }
         input {
             padding: 8px;
             border: 1px solid #ddd;
             border-radius: 4px;
-
         }
         button {
             background-color: #28A745;
@@ -75,108 +91,87 @@
         .error-message {
             color: red;
             font-size: 12px;
-            display: none; /* Hide by default */
-
+            display: none;
         }
-        .radio-group, .checkbox-group {
+        .checkbox-group {
             margin: 10px 0;
+            display: flex;
+            align-items: center;
         }
-        .radio-group label, .checkbox-group label {
-            margin-right: 10px;
+        .checkbox-group input[type="checkbox"] {
+            margin-right: 5px;  /* Reduced from 10px to 5px */
+        }
+        .checkbox-group label {
+            font-size: 0.9em;
+            /* Removed margin-right */
         }
     </style>
 </head>
 <body>
-<div class="video-container">
-    <video src="../images/video1.mp4" autoplay muted loop></video>
-</div>
 
+<div class="hero">
+    <div class="showcase">
+        <div class="signup-container">
+            <div class="brand-container">
+                <img class="logo" src="../images/logo.jpg" alt="Furniture Haven" />
+                <h1 class="brand-name">Furniture Haven</h1>
+            </div>
+            <h2>Create Account</h2>
+            <form id="signupForm" th:action="@{/signup}" th:object="${customer}" method="post">
+                <table>
+                    <tr>
+                        <td><label for="username">Username:</label></td>
+                        <td><input type="text" id="username" th:field="*{name}" name="signup-username" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="email">Email:</label></td>
+                        <td><input type="email" id="email" th:field="*{username}" name="email" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="password">Password:</label></td>
+                        <td>
+                            <input type="password" id="password" th:field="*{password}" name="signup-password" required>
+                            <div class="error-message" id="passwordError">Password must be at least 8 characters long, with at least one uppercase letter, one lowercase letter, and one number.</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="confirm-password">Confirm Password:</label></td>
+                        <td><input type="password" id="confirm-password" name="confirm-password" required></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <select id="refer" name="refer" style="font-family: Arial, sans-serif;">
+                                <option value="" disabled selected>How did you hear about us?</option>
+                                <option value="facebook">Facebook</option>
+                                <option value="linkedin">Linkedin</option>
+                                <option value="google">Google</option>
+                            </select>
+                            <div class="error-message" id="referError">Please select how you heard about us.</div>
+                        </td>
+                    </tr>
+                    <tr>
 
-<audio id="my_audio" src="../images/audio.mp3" loop="loop"></audio>
-
-<div class="showcase">
-    <div class="signup-container">
-        <div class="brand-container">
-            <img class="logo" src="../images/logo.jpg" alt="Furniture Haven" />
-            <h1 class="brand-name">Furniture Haven</h1>
-        </div>
-        <h2>Create Account</h2>
-        <form id="signupForm" th:action="@{/signup}" th:object="${customer}" method="post">
-            <table>
-                <tr>
-                    <td><label for="username">Username:</label></td>
-                    <td><input type="text" id="username" th:field="*{name}" name="signup-username" required></td>
-                </tr>
-                <tr>
-                    <td><label for="email">User Name:</label></td>
-                    <td>
-                        <input type="email" id="email" th:field="*{username}" name="email" required>
-
-                    </td>
-                </tr>
-                <tr>
-                    <td><label for="password">Password:</label></td>
-                    <td>
-                        <input type="password" id="password" th:field="*{password}" name="signup-password" required>
-
-
-                    </td>
-                </tr>
-                <tr>
-                    <td><label for="confirm-password">Confirm Password:</label></td>
-                    <td>
-                        <input type="password" id="confirm-password" name="confirm-password" required>
-
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                        <select id="refer" name="refer" style="font-family: Arial, sans-serif;">
-                            <option value="" disabled selected>How did you hear about us?</option>
-                            <option value="facebook">Facebook</option>
-                            <option value="linkedin">Linkedin</option>
-                            <option value="google">Google</option>
-                        </select>
-                        <div class="error-message" id="referError">Please select how you heard about us.</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td><label>Preferred Contact:</label></td>
-                    <td>
-                        <div class="radio-group">
-                            <input type="radio" id="contact-email" name="preferred-contact" value="email" checked>
-                            <label for="contact-email">Email</label>
-                            <input type="radio" id="contact-phone" name="preferred-contact" value="phone">
-                            <label for="contact-phone">Phone</label>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <div class="checkbox-group">
-                            <input type="checkbox" id="newsletter" name="newsletter">
-                            <label for="newsletter">Subscribe to our newsletter</label>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2" style="text-align: center;">
-                        <button type="submit">Sign Up</button>
-                    </td>
-                </tr>
-
-            </table>
-        </form>
-        <div class="login-link">
-            Already have an account? <a th:href="@{/login}">Log in</a>
+                        <td colspan="2">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="terms" name="terms" required>
+                                <label for="terms">I agree to the Terms of service and Privacy policy.</label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: center;">
+                            <button type="submit">Sign Up</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+            <div class="login-link">
+                Already have an account? <a th:href="@{/login}">Log in</a>
+            </div>
         </div>
     </div>
 </div>
-
-
-
-
 
 </body>
 </html>

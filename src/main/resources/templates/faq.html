@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -14,86 +15,10 @@
             href="https://fonts.googleapis.com/css2?family=Moderustic:wght@300..800&display=swap"
             rel="stylesheet"
     />
-    <title>List Product</title>
-    <style>
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-gap: 20px;
-        }
-        .card {
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-            width: 100%;
-            height: 450px; /* Fixed height */
-            margin: auto;
-            text-align: center;
-            font-family: arial;
-            display: flex;
-            flex-direction: column;
-            text-decoration: none; /* Remove underline from anchor */
-            color: inherit; /* Inherit text color from parent */
-        }
-        .card:hover {
-            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-        }
-        .card img {
-            width: 100%;
-            height: 200px; /* Fixed height for images */
-            object-fit: cover; /* Maintain aspect ratio */
-        }
-        .card-content {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 10px;
-        }
-        .price {
-            font-size: 22px;
-            margin: 10px 0;
-        }
-        .description {
-            flex-grow: 1;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-line-clamp: 3; /* Limit to 3 lines */
-            -webkit-box-orient: vertical;
-        }
-        .card button {
-            border: none;
-            outline: 0;
-            padding: 12px;
-            color: white;
-            background-color: #000;
-            text-align: center;
-            cursor: pointer;
-            width: 100%;
-            font-size: 18px;
-            margin-top: auto;
-        }
-        .card button:hover {
-            opacity: 0.7;
-        }
-        .pagination {
-            text-align: center;
-            margin: 20px 0;
-        }
-        .pagination a {
-            margin: 0 10px;
-            padding: 8px 16px;
-            background-color: #007bff;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-        .pagination a:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    <title>FAQ Page</title>
 </head>
 <body>
-<!-- Header-->
+<!--Header-->
 <header>
     <nav class="nav-bar">
         <div class="brand-container">
@@ -125,17 +50,41 @@
         </ul>
     </nav>
 </header>
-<div class="grid-container">
-    <a th:each="product : ${products}" th:href="@{/products/{id}(id=${product.id})}" class="card">
-        <img th:src="${product.image}" th:alt="${product.name}">
-        <div class="card-content">
-            <h2 th:text="${product.name}"></h2>
-            <p class="price" th:text="'$'+${product.price}"></p>
-            <p class="description" th:text="${product.description}"></p>
-        </div>
-    </a>
-</div>
+<!--Header ends-->
 
+<main>
+    <h2>Frequently Asked Questions</h2>
+
+    <section>
+        <h3>1. What is your return policy?</h3>
+        <p>You can return any item within 30 days of purchase, provided it is in its original condition. Please keep your receipt for a smooth return process.</p>
+    </section>
+
+    <section>
+        <h3>2. Do you offer delivery services?</h3>
+        <p>Yes, we offer delivery services within a 50-mile radius. Delivery fees vary based on distance and the size of your order.</p>
+    </section>
+
+    <section>
+        <h3>3. Can I customize my furniture?</h3>
+        <p>Absolutely! We offer customization options for many of our products. Please contact our customer service team for more details.</p>
+    </section>
+
+    <section>
+        <h3>4. What payment methods do you accept?</h3>
+        <p>We accept major credit cards, PayPal, and financing options through third-party services.</p>
+    </section>
+
+    <section>
+        <h3>5. How can I contact customer support?</h3>
+        <p>You can reach our customer support team via email at support@furniturehaven.com or by calling (123) 456-7890.</p>
+    </section>
+
+    <section>
+        <h3>6. Do you offer warranties on your products?</h3>
+        <p>Yes, most of our products come with a manufacturer's warranty. Please check the product details for specific warranty information.</p>
+    </section>
+</main>
 <!-- Footer Section -->
 <footer class="site-footer">
     <div class="footer-container">
@@ -155,7 +104,6 @@
                 <li><a href="">Shipping</a></li>
             </ul>
         </div>
-
         <div class="footer-column">
             <h4>Follow us</h4>
             <ul class="social-links">
@@ -173,10 +121,12 @@
                 </li>
             </ul>
         </div>
+        <p>&copy; 2024 Furniture Haven. All rights reserved.</p>
     </div>
 </footer>
+
+
+
+
 </body>
 </html>
-
-
-

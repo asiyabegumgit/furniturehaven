@@ -158,7 +158,7 @@
             </div>
         </div>
     </div>
-    <div class="order-summary">
+    <div class="order-summary" th:if="${cart.items.size()} > 0">
         <h2>Order Summary</h2>
         <p><span>Item Subtotal</span> <span th:text="'$' + ${#numbers.formatDecimal(cart.subtotal, 1, 2)}"></span></p>
         <p><span>Estimated Tax</span> <span th:text="'$' + ${#numbers.formatDecimal(cart.subtotal * 0.10, 1, 2)}"></span></p>
@@ -166,6 +166,10 @@
         <form th:action="@{/cart/checkout}" method="post">
         <button class="checkout-btn">Proceed to Checkout</button>
         </form>
+    </div>
+    <div th:if="${cart.items.size()} <= 0">
+        <h2>There are no items in your cart.</h2>
+
     </div>
 </div>
 
