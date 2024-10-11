@@ -17,10 +17,11 @@ public class AuthController {
     private CustomerService customerService;
 
     // Show the login form
-    @GetMapping("/login")
+    @GetMapping({"/login","/logout"})
     public String showLoginForm() {
         return "login";
     }
+
     // Show the landing page
    @GetMapping({"/", "/homepage"})
     public String showHomePage(Model model) {
@@ -48,6 +49,7 @@ public class AuthController {
         customerService.saveCustomer(customer);// Save the user with their selected role
         return "redirect:/login";  // Redirect to the login page
     }
+
 
 
 }

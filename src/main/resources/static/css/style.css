@@ -47,9 +47,46 @@ nav > ul{
     font-weight: 600;
     text-decoration: none;
 }
+.nav-content {
+    display: flex;
+    align-items: center;
+    border: 2px solid #ccc; /* Set a border around the nav-content */
+    border-radius: 50px; /* Increase border-radius for oval shape */
+    padding: 10px 20px; /* Add padding to give it height and width */
+    background-color: #f9f9f9; /* Set background color */
+    transition: border-color 0.3s, background-color 0.3s; /* Smooth transition */
+    position: relative; /* Ensure dropdown is positioned relative to this */
+}
 
+.nav-content:hover {
+    border-color: #007BFF; /* Change border color on hover */
+    background-color: #e9ecef; /* Change background color on hover */
+}
 .nav-link:hover{
     color: #0e0e0e
+}
+.dropdown-content {
+    display: none; /* Hide by default */
+    position: absolute; /* Position it relative to the nav-content */
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    z-index: 1; /* Ensure it appears above other content */
+    top:100%;
+    left:0;
+    margin-top: 8px; /* Increase space between the nav-content and dropdown */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-item {
+    color: #333;
+    text-decoration: none;
+    padding: 10px 15px;
+    display: block;
+}
+
+.dropdown-item:hover {
+    background-color: #e9ecef; /* Highlight on hover */
 }
 .search{
     
@@ -124,7 +161,7 @@ input{
     border: none;
     padding: 10px;
     border-radius: 15px;
-    background-color: rgba(0, 255, 255, 0.75);
+
     font-size: 20px;
     font-family: "Roboto", sans-serif;
     font-weight: 600;
@@ -166,7 +203,7 @@ input{
     margin-top: 30px;
     margin-bottom: 40px;
     text-align: center;
-    font-family: "Moderustic", sans-serif;
+    font-family: "Roboto", sans-serif;
     font-weight: 700;
     color: rgb(20, 20, 20);
 }
@@ -364,7 +401,7 @@ input{
 
 .footer-column ul li {
     margin-bottom: 10px;
-    font-family: "Moderustic", sans-serif;
+    font-family: "Roboto", sans-serif;
 }
 
 .footer-column ul li a {

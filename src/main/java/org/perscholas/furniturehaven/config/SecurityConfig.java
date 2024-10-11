@@ -22,7 +22,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests(authorizeRequests -> authorizeRequests
-                        .requestMatchers("/", "/css/**", "/js/**", "/images/**", "/login", "/signup","/homepage","/products","/cart","/products/search/**","/faq").permitAll()  // Public access
+                        .requestMatchers("/", "/css/**", "/js/**", "/images/**", "/login", "/signup","/homepage","/products","/products/**","/products/search/**","/faq").permitAll()  // Public access
                         .requestMatchers("/homepage").hasAnyRole("CUSTOMER","ADMIN")
                         .requestMatchers("/homepage/**").hasAnyRole("CUSTOMER","ADMIN")
                         .requestMatchers("/cart/**").hasRole("CUSTOMER")
@@ -37,13 +37,11 @@ public class SecurityConfig {
 
                                 try {
 
-                                    if (role.equals("ROLE_GUEST")) {
-                                        response.sendRedirect("/homepage");  // Admin redirect
-                                    } else if (role.equals("ROLE_CUSTOMER")) {
+                                 //   if (role.equals("ROLE_CUSTOMER")) {
 
 
                                         response.sendRedirect("/homepage");  // Employee redirect
-                                    }
+                                   // }
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }

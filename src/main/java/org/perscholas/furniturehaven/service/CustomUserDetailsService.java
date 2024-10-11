@@ -1,5 +1,6 @@
 package org.perscholas.furniturehaven.service;
 
+import org.perscholas.furniturehaven.model.CustomUserDetails;
 import org.perscholas.furniturehaven.model.Customer;
 import org.perscholas.furniturehaven.repository.CustomerRepository;
 import org.perscholas.furniturehaven.repository.UserRepository;
@@ -20,13 +21,13 @@ public class CustomUserDetailsService implements UserDetailsService {
     private CustomerRepository customerRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public CustomUserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // Fetch the user from the repository
 
         Optional<Customer> optionalCustomer = customerRepository.findByUsername(username);
 
         if (optionalCustomer.isPresent()) {
-            return new User(optionalCustomer.get().getUsername(),optionalCustomer.get().getPassword(),Collections.singleton(new SimpleGrantedAuthority("ROLE_CUSTOMER")));
+            return new CustomUserDetails(optionalCustomer.get().getUsername(),optionalCustomer.get().getPassword(),optionalCustomer.get().getName(),Collections.singleton(new SimpleGrantedAuthority("ROLE_CUSTOMER")));
 
         }
 

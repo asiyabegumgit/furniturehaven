@@ -92,8 +92,7 @@
         }
     </style>
 </head>
-<body>
-<!-- Header-->
+<!--Header-->
 <header>
     <nav class="nav-bar">
         <div class="brand-container">
@@ -113,10 +112,16 @@
             <li><a class="nav-link" th:href="@{/homepage}">Home</a></li>
             <li><a class="nav-link" th:href="@{/faq}">FAQ</a></li>
             <li>
-                <a class="nav-link" th:href="@{/login}">
+                <div class="nav-content">
                     <img class="shopping-cart" src="../images/user-login.png" alt="User Login" />
-                </a>
+                    <a class="nav-link" id="signInLink">Sign In</a>
+                    <div class="dropdown-content" id="dropdownMenu">
+                        <a class="dropdown-item" th:href="@{/login}">Sign In</a>
+                        <a class="dropdown-item" th:href="@{/signup}">Create Account</a>
+                    </div>
+                </div>
             </li>
+
             <li>
                 <a class="nav-link" th:href="@{/cart}">
                     <img class="shopping-cart" src="../images/shopping-bag.png" alt="Shopping Bag" />
@@ -125,6 +130,9 @@
         </ul>
     </nav>
 </header>
+<!--Header ends-->
+<body>
+
 <div class="grid-container">
     <a th:each="product : ${products}" th:href="@{/products/{id}(id=${product.id})}" class="card">
         <img th:src="${product.image}" th:alt="${product.name}">
@@ -173,6 +181,9 @@
                 </li>
             </ul>
         </div>
+    </div>
+    <div>
+        <p style="text-align: center">&copy; 2024 Furniture Haven. All rights reserved.</p>
     </div>
 </footer>
 </body>

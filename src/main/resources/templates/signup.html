@@ -113,8 +113,9 @@
     <div class="showcase">
         <div class="signup-container">
             <div class="brand-container">
-                <img class="logo" src="../images/logo.jpg" alt="Furniture Haven" />
-                <h1 class="brand-name">Furniture Haven</h1>
+                <a th:href="@{/homepage}"><img class="logo" src="../images/logo.jpg" alt="Furniture Haven" />
+                </a>
+               <!-- <h1 class="brand-name">Furniture Haven</h1>-->
             </div>
             <h2>Create Account</h2>
             <form id="signupForm" th:action="@{/signup}" th:object="${customer}" method="post">

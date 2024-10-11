@@ -29,5 +29,6 @@ public class Customer extends User{
     public Customer() {
         super();
         setRole(Role.CUSTOMER);
+
     }
 }
