@@ -1,13 +1,11 @@
 package org.perscholas.furniturehaven.controller;
 
-import org.perscholas.furniturehaven.model.Customer;
 import org.perscholas.furniturehaven.model.Product;
-import org.perscholas.furniturehaven.model.User;
-import org.perscholas.furniturehaven.service.CartService;
-import org.perscholas.furniturehaven.service.CustomerService;
+
 import org.perscholas.furniturehaven.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +21,7 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/products")
+@CrossOrigin(origins = "http://localhost:4200")
 public class ProductController {
     @Autowired
     private ProductService productService;
@@ -41,7 +40,9 @@ public class ProductController {
         Page<Product> productPage = productService.getProducts(page, size);
         model.addAttribute("products",productPage);
         return"products-list"; // Thymeleaf template name
+
     }
+
     @GetMapping("/{id}")
     public String viewProduct(@PathVariable Long id, Model model) {
         Optional<Product> product=productService.findById(id);

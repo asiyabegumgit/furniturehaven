@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="../css/style.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="../css/style.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link
             href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
             rel="stylesheet"
@@ -16,126 +17,105 @@
     />
     <title>List Product</title>
 
-<style>
-    body {
-        font-family: "Roboto", sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f4f4f4;
-    }
-    .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px;
-    }
-    .product-detail {
-        display: flex;
-        background-color: #fff;
-        border-radius: 8px;
-        overflow: hidden;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    .product-image {
-        flex: 1;
-        padding: 20px;
-    }
-    .product-image img {
-        width: 100%;
-        height: auto;
-        object-fit: cover;
-    }
-    .product-info {
-        flex: 1;
-        padding: 20px;
-    }
-    .product-name {
-        font-size: 24px;
-        font-weight: bold;
-        margin-bottom: 10px;
-    }
-    .product-price {
-        font-size: 20px;
-        color: #007bff;
-        margin-bottom: 20px;
-    }
-    .product-description {
-        margin-bottom: 20px;
-        line-height: 1.6;
-    }
-    .quantity-control {
-        display: flex;
-        align-items: center;
-        margin-bottom: 20px;
-    }
-    .quantity-btn {
-        background-color: #f0f0f0;
-        border: none;
-        padding: 10px 15px;
-        font-size: 18px;
-        cursor: pointer;
-    }
-    .quantity-input {
-        width: 50px;
-        text-align: center;
-        font-size: 18px;
-        margin: 0 10px;
-        border: 1px solid #ddd;
-        padding: 5px;
-    }
-    .add-to-cart-btn {
-        background-color: #007bff;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        font-size: 18px;
-        cursor: pointer;
-        border-radius: 5px;
-    }
-    .add-to-cart-btn:hover {
-        background-color: #0056b3;
-    }
-</style>
+    <style>
+        body {
+            font-family: "Roboto", sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .product-detail {
+            display: flex;
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-image {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        .product-info {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .product-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .product-price {
+            font-size: 20px;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        .product-description {
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .quantity-btn {
+            background-color: #f0f0f0;
+            border: none;
+            padding: 10px 15px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .quantity-input {
+            width: 50px;
+            text-align: center;
+            font-size: 18px;
+            margin: 0 10px;
+            border: 1px solid #ddd;
+            padding: 5px;
+        }
+
+        .add-to-cart-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+
 </head>
-<!--Header-->
-<header>
-    <nav class="nav-bar">
-        <div class="brand-container">
-            <img class="logo" src="../images/logo.jpg" alt="Furniture Haven" />
-            <h1 class="brand-name">Furniture Haven</h1>
-        </div>
-
-        <ul>
-            <li>
-                <div class="search-container">
-                    <form th:action="@{/products/search}" method="get">
-                        <input type="text" id="search" placeholder="Search.." name="keyword">
-                        <button type="submit"><i class="fa fa-search"></i></button>
-                    </form>
-                </div>
-            </li>
-            <li><a class="nav-link" th:href="@{/homepage}">Home</a></li>
-            <li><a class="nav-link" th:href="@{/faq}">FAQ</a></li>
-            <li>
-                <div class="nav-content">
-                    <img class="shopping-cart" src="../images/user-login.png" alt="User Login" />
-                    <a class="nav-link" id="signInLink">Sign In</a>
-                    <div class="dropdown-content" id="dropdownMenu">
-                        <a class="dropdown-item" th:href="@{/login}">Sign In</a>
-                        <a class="dropdown-item" th:href="@{/signup}">Create Account</a>
-                    </div>
-                </div>
-            </li>
-
-            <li>
-                <a class="nav-link" th:href="@{/cart}">
-                    <img class="shopping-cart" src="../images/shopping-bag.png" alt="Shopping Bag" />
-                </a>
-            </li>
-        </ul>
-    </nav>
-</header>
-<!--Header ends-->
 <body>
+<!--Header-->
+<div th:replace="~{fragments/header :: header}"></div>
+<!--Header ends-->
+
 
 <div class="container">
     <div class="product-detail">
@@ -163,12 +143,12 @@
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const decreaseBtn = document.getElementById('quantity-btn-decrease');
         const increaseBtn = document.getElementById('quantity-btn-increase');
         const quantityInput = document.getElementById('quantity-input');
 
-        decreaseBtn.addEventListener('click', function(e) {
+        decreaseBtn.addEventListener('click', function (e) {
             e.preventDefault(); // Prevent form submission
             let currentValue = parseInt(quantityInput.value) || 1; // Default to 1 if NaN
             if (currentValue > 1) {
@@ -176,7 +156,7 @@
             }
         });
 
-        increaseBtn.addEventListener('click', function(e) {
+        increaseBtn.addEventListener('click', function (e) {
             e.preventDefault(); // Prevent form submission
             let currentValue = parseInt(quantityInput.value) || 1; // Default to 1 if NaN
             quantityInput.value = currentValue + 1;
@@ -184,46 +164,7 @@
     });
 </script>
 <!-- Footer Section -->
-<footer class="site-footer">
-    <div class="footer-container">
-        <div class="footer-column">
-            <h4>Company</h4>
-            <ul>
-                <li><a href="">About us</a></li>
-                <li><a href="">Our services</a></li>
-                <li><a href="">Privacy policy</a></li>
-            </ul>
-        </div>
-        <div class="footer-column">
-            <h4>Support</h4>
-            <ul>
-                <li><a href="">FAQ</a></li>
-                <li><a href="">Contact us</a></li>
-                <li><a href="">Shipping</a></li>
-            </ul>
-        </div>
-
-        <div class="footer-column">
-            <h4>Follow us</h4>
-            <ul class="social-links">
-                <li>
-                    <img src="../images/facebook.png" alt="logo" />
-                    <a href="">Facebook</a>
-                </li>
-                <li>
-                    <img src="../images/instagram.png" alt="logo" />
-                    <a href="">Instagram</a>
-                </li>
-                <li>
-                    <img src="../images/twitter.png" alt="logo" />
-                    <a href="">Twitter</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <div>
-        <p style="text-align: center">&copy; 2024 Furniture Haven. All rights reserved.</p>
-    </div>
-</footer>
+<div th:replace="~{fragments/footer :: footer}"></div>
+<script src="../js/dropdown.js"></script>
 </body>
 </html>

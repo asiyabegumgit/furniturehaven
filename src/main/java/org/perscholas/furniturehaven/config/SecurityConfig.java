@@ -1,6 +1,5 @@
 package org.perscholas.furniturehaven.config;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
 import org.perscholas.furniturehaven.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -10,6 +9,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
@@ -21,10 +23,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .cors(withDefaults())
                 .authorizeRequests(authorizeRequests -> authorizeRequests
-                        .requestMatchers("/", "/css/**", "/js/**", "/images/**", "/login", "/signup","/homepage","/products","/products/**","/products/search/**","/faq").permitAll()  // Public access
-                        .requestMatchers("/homepage").hasAnyRole("CUSTOMER","ADMIN")
-                        .requestMatchers("/homepage/**").hasAnyRole("CUSTOMER","ADMIN")
+                        .requestMatchers("/", "/css/**", "/js/**", "/images/**","/home","/home/**","/products", "/products/**", "/products/search/**","/services","/privacy","/signup","/about").permitAll()  // Public access
+                        .requestMatchers( "/logout").hasAnyRole("CUSTOMER", "ADMIN")
                         .requestMatchers("/cart/**").hasRole("CUSTOMER")
                         .anyRequest().authenticated())  // All other requests require authentication
 
@@ -37,17 +39,27 @@ public class SecurityConfig {
 
                                 try {
 
-                                 //   if (role.equals("ROLE_CUSTOMER")) {
+                                    //   if (role.equals("ROLE_CUSTOMER")) {
 
 
-                                        response.sendRedirect("/homepage");  // Employee redirect
-                                   // }
+                                    response.sendRedirect("/home");  // Employee redirect
+                                    // }
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
                             });
                         }))
-                .logout(logout -> logout.logoutSuccessUrl("/login").permitAll())
+                //.logout(logout -> logout.logoutSuccessUrl("/login"))
+                // .userDetailsService(userDetailsService);
+
+                .logout(logout -> logout
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout")) // Specify the logout URL
+
+                        .invalidateHttpSession(true) // Invalidate session
+                        .clearAuthentication(true) // Clear authentication
+                        .deleteCookies("JSESSIONID")
+                        .permitAll())
+
                 .userDetailsService(userDetailsService);
 
         return http.build();

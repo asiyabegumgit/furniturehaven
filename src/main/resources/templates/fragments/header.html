@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Header Fragment</title>
+</head>
+<body>
+<header th:fragment="header">
+    <nav class="nav-bar">
+        <div class="brand-container">
+            <img class="logo" src="../images/logo.jpg" alt="Furniture Haven"/>
+            <h1 class="brand-name">Furniture Haven</h1>
+        </div>
+
+        <ul>
+            <li>
+                <div class="search-container">
+                    <form th:action="@{/products/search}" method="get">
+                        <input type="text" id="search" placeholder="Search.." name="keyword">
+                        <button type="submit"><i class="fa fa-search"></i></button>
+                    </form>
+                </div>
+            </li>
+            <li><a class="nav-link" th:href="@{/home}">Home</a></li>
+
+            <li>
+                <div class="nav-content">
+                    <img class="shopping-cart" src="../images/user-login.png" alt="User Login"/>
+                    <div id="signInLink">
+                            <span class="nav-link"
+                                  th:if="${#authentication.principal != 'anonymousUser'}"
+                                  th:text="'Hi, ' + ${#authentication.principal.name} + '!'"></span>
+                        <span class="nav-link"
+                              th:if="${#authentication.principal == 'anonymousUser'}"
+                              th:text="'Sign In'"></span>
+                    </div>
+                    <div class="dropdown-content" id="dropdownMenu">
+                        <a class="dropdown-item" th:if="${#authentication.principal == 'anonymousUser'}"
+                           th:href="@{/login}">Sign In</a>
+                        <a class="dropdown-item" th:if="${#authentication.principal == 'anonymousUser'}"
+                           th:href="@{/signup}">Create Account</a>
+                        <a class="dropdown-item" th:if="${#authentication.principal != 'anonymousUser'}"
+                           th:href="@{/logout}">Logout</a>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <a class="nav-link" th:href="@{/cart}">
+                    <img class="shopping-cart" src="../images/shopping-bag.png" alt="Shopping Bag"/>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<script th:inline="javascript">
+    document.getElementById("signInLink").onclick = function () {
+        var dropdown = document.getElementById("dropdownMenu");
+        dropdown.style.display = (dropdown.style.display === "block") ? "none" : "block";
+    }
+
+    // Close dropdown if clicked outside
+    window.onclick = function (event) {
+        var dropdown = document.getElementById("dropdownMenu");
+        if (!event.target.matches('#signInLink')) {
+            dropdown.style.display = "none";
+        }
+    }
+</script>
+</body>
+</html>

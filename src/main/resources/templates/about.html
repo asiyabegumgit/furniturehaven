@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="../css/style.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+            rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link
+            href="https://fonts.googleapis.com/css2?family=Moderustic:wght@300..800&display=swap"
+            rel="stylesheet"
+    />
+
+    <title>About Us - Furniture Haven</title>
+    <style>
+        .bgpic {
+            background-image: url(../images/about-page.jpg);
+            background-color: rgba(24, 23, 23, 0.8);
+            background-blend-mode: lighten;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            margin-bottom: 20px;
+
+        }
+
+        .bgpic-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            max-width: 600px;
+            padding: 5rem;
+        }
+
+        .bgpic-text h1 {
+            text-transform: uppercase;
+            color: Black;
+            font-family: "Roboto", sans-serif;
+            font-size: 60px;
+            font-style: italic;
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+
+        .bgpic-text > p {
+            font-family: "Roboto", sans-serif;
+            font-weight: 300;
+            font-size: 18px;
+            color: white;
+        }
+
+        .about-paragraph {
+            text-align: justify; /* Justify the text for better alignment */
+            margin: 0 auto; /* Center the block */
+            max-width: 800px; /* Set a max width */
+            padding: 20px; /* Add some padding */
+            font-family: "Roboto", sans-serif; /* Ensure consistent font */
+            font-size: 18px; /* Set font size */
+            color: #333; /* Set text color */
+            line-height: 1.6; /* Improve readability */
+            text-indent: 30px; /* Indent the first line */
+        }
+    </style>
+
+</head>
+<body>
+<!--Header-->
+<div th:replace="~{fragments/header :: header}"></div>
+<!--Header ends-->
+
+
+<div class="container">
+    <h1>About Us - Furniture Haven</h1>
+
+    <div class="bgpic">
+        <div class="bgpic-text">
+            <h1>The best furnitures in town!</h1>
+            <p>
+                Transform Your Space, Embrace Your Style.
+                Affordable Comfort Awaits at Furniture Haven!
+            </p>
+
+        </div>
+    </div>
+    <div class="about-paragraph">
+        <p>
+            Welcome to Furniture Haven, where style meets comfort and affordability! Our mission is to transform your
+            living spaces into beautiful, functional homes with ease. We believe that everyone deserves a well-furnished
+            home without the hassle of high prices and endless searching.
+
+            At Furniture Haven, we prioritize quality and craftsmanship. Our experienced buying team sources materials
+            from around the globe, ensuring that our furniture not only reflects the latest trends but also stands the
+            test of time. We utilize high-quality materials and innovative designs to bring you pieces that combine
+            durability with aesthetic appeal.
+
+            We are committed to protecting our planet. Our eco-friendly initiatives include a comprehensive recycling
+            program that reduces waste and promotes sustainability. Since our inception, we have implemented practices
+            that minimize our environmental footprint, and we continue to explore new ways to enhance our commitment to
+            the earth.
+
+            Giving back to the community is at the heart of Furniture Haven. We actively support local organizations,
+            including shelters, youth programs, and various charities. A portion of our sales goes towards initiatives
+            that uplift and empower those in need, reinforcing our belief in the importance of community support.
+
+            At Furniture Haven, we treat our customers like family. Our dedicated team is here to ensure that your
+            shopping experience is smooth and enjoyable. Whether you’re visiting our showroom, shopping online, or
+            seeking assistance, our knowledgeable staff is ready to help you find the perfect pieces for your home. We
+            pride ourselves on our customer satisfaction and strive to exceed your expectations every step of the way.
+
+            Thank you for choosing Furniture Haven. We’re excited to help you create a space you’ll love for years to
+            come!
+        </p></div>
+</div>
+<!-- Footer Section -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+<script src="../js/dropdown.js"></script>
+</body>
+</html>

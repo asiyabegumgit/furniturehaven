@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="../css/style.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+            rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link
+            href="https://fonts.googleapis.com/css2?family=Moderustic:wght@300..800&display=swap"
+            rel="stylesheet"
+    />
+    <title>Furniture Haven - Return and Cancellation Policy</title>
+    <style>
+        .container {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #2c3e50;
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        .note {
+            background-color: #f8f8f8;
+            border-left: 4px solid #2c3e50;
+            padding: 10px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+<!--Header-->
+<div th:replace="~{fragments/header :: header}"></div>
+<!--Header ends-->
+
+
+<div class="container">
+    <h1>Rooms To Go - Return and Cancellation Policy</h1>
+
+    <h2>Online Sales</h2>
+
+    <h3>1. Cancellation Policy</h3>
+    <ul>
+        <li>Online sales may be cancelled only until merchandise is loaded on the truck for delivery (generally three
+            days prior to the delivery date).
+        </li>
+        <li>Express/Next Day Delivery orders are not eligible for cancellation.</li>
+        <li>Once merchandise is loaded, the order cannot be cancelled and will be treated as a return.</li>
+        <li>Refunds may take up to 10 business days to process.</li>
+    </ul>
+
+    <h3>2. Return Policy</h3>
+    <ul>
+        <li>Returns of items purchased online are permitted within 48 hours of delivery if the merchandise was not as
+            expected.
+        </li>
+        <li>Refunds will be made for the purchase price of the merchandise plus tax, but not the delivery charge.</li>
+        <li>Returns may incur a fee equal to the original delivery charge.</li>
+        <li>Additional fees may apply for certain returns and exchanges (e.g., Doorway Delivery, mattresses, and box
+            springs).
+        </li>
+        <li>To initiate a return, contact Internet Sales Support at 1-888-709-5380.</li>
+        <li>Include your original sales order number when contacting support.</li>
+        <li>You are responsible for returning the merchandise in the condition in which it was delivered.</li>
+        <li>Items delivered via UPS must be returned via UPS at the customer's expense.</li>
+        <li>Once the merchandise has been returned, refunds may take up to 10 business days to process.</li>
+    </ul>
+
+    <div class="note">
+        <strong>Note for BitPay Purchases:</strong> Any permissible refund will be made by Rooms To Go by check payable
+        in U.S. dollars in the amount set forth in the sales order, subject to the delivery charges noted in this
+        section.
+    </div>
+
+    <h2>Showroom Sales</h2>
+    <ul>
+        <li>No refunds are available and sales cannot be cancelled after merchandise has been delivered.</li>
+        <li>Express/Next Day Delivery orders are not eligible for refund or cancellation.</li>
+        <li>A total refund is available only if there has been no delivery and you cancel the sale within 48 hours of
+            the date of purchase.
+        </li>
+        <li>If you do not cancel the sale within 48 hours, but cancel prior to delivery, only 80% of the purchase price
+            will be refunded.
+        </li>
+    </ul>
+
+    <h2>Additional Policies</h2>
+    <ul>
+        <li><a href="#">Mattress and Foundation/Boxspring Sleep Trial Policy</a></li>
+        <li><a href="#">One Year Limited Product Warranty</a></li>
+    </ul>
+</div>
+<!-- Footer Section -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+<script src="../js/dropdown.js"></script>
+</body>
+</html>

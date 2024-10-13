@@ -1,7 +1,7 @@
 package org.perscholas.furniturehaven.controller;
 
+import jakarta.servlet.http.HttpServletResponse;
 import org.perscholas.furniturehaven.model.Customer;
-import org.perscholas.furniturehaven.model.Role;
 import org.perscholas.furniturehaven.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,28 +11,58 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
+
 public class AuthController {
 
     @Autowired
     private CustomerService customerService;
-
+    // Show the landing page
+    @GetMapping({"/","/home"})
+    public String showHomePage(HttpServletResponse response) {
+        return "homepage";
+    }
     // Show the login form
-    @GetMapping({"/login","/logout"})
+    @GetMapping("/login")
     public String showLoginForm() {
         return "login";
     }
 
-    // Show the landing page
-   @GetMapping({"/", "/homepage"})
-    public String showHomePage(Model model) {
 
-        return "homepage";
-    }
     // Show the FAQ page
     @GetMapping( "/faq")
     public String showFAQPage(Model model) {
 
         return "faq";
+    }
+    // Show the About page
+    @GetMapping( "/about")
+    public String showAboutPage(Model model) {
+
+        return "about";
+    }
+    // Show the Contact page
+    @GetMapping( "/contact")
+    public String showContactPage(Model model) {
+
+        return "contact";
+    }
+    // Show the Services page
+    @GetMapping( "/return-policy")
+    public String showServicesPage(Model model) {
+
+        return "return-policy";
+    }
+    // Show the Privacy policy page
+    @GetMapping( "/privacy")
+    public String showPrivacyPage(Model model) {
+
+        return "privacy";
+    }
+    // Show the FAQ page
+    @GetMapping( "/shipping")
+    public String showShippingPage(Model model) {
+
+        return "shipping";
     }
     // Show the registration page
     @GetMapping("/signup")

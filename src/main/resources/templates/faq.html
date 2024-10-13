@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../css/style.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="../css/style.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link
             href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
             rel="stylesheet"
@@ -19,37 +19,7 @@
 </head>
 <body>
 <!--Header-->
-<header>
-    <nav class="nav-bar">
-        <div class="brand-container">
-            <img class="logo" src="../images/logo.jpg" alt="Furniture Haven" />
-            <h1 class="brand-name">Furniture Haven</h1>
-        </div>
-
-        <ul>
-            <li>
-                <div class="search-container">
-                    <form th:action="@{/products/search}" method="get">
-                        <input type="text" id="search" placeholder="Search.." name="keyword">
-                        <button type="submit"><i class="fa fa-search"></i></button>
-                    </form>
-                </div>
-            </li>
-            <li><a class="nav-link" th:href="@{/homepage}">Home</a></li>
-            <li><a class="nav-link" th:href="@{/faq}">FAQ</a></li>
-            <li>
-                <a class="nav-link" th:href="@{/login}">
-                    <img class="shopping-cart" src="../images/user-login.png" alt="User Login" />
-                </a>
-            </li>
-            <li>
-                <a class="nav-link" th:href="@{/cart}">
-                    <img class="shopping-cart" src="../images/shopping-bag.png" alt="Shopping Bag" />
-                </a>
-            </li>
-        </ul>
-    </nav>
-</header>
+<div th:replace="~{fragments/header :: header}"></div>
 <!--Header ends-->
 
 <main>
@@ -57,17 +27,20 @@
 
     <section>
         <h3>1. What is your return policy?</h3>
-        <p>You can return any item within 30 days of purchase, provided it is in its original condition. Please keep your receipt for a smooth return process.</p>
+        <p>You can return any item within 30 days of purchase, provided it is in its original condition. Please keep
+            your receipt for a smooth return process.</p>
     </section>
 
     <section>
         <h3>2. Do you offer delivery services?</h3>
-        <p>Yes, we offer delivery services within a 50-mile radius. Delivery fees vary based on distance and the size of your order.</p>
+        <p>Yes, we offer delivery services within a 50-mile radius. Delivery fees vary based on distance and the size of
+            your order.</p>
     </section>
 
     <section>
         <h3>3. Can I customize my furniture?</h3>
-        <p>Absolutely! We offer customization options for many of our products. Please contact our customer service team for more details.</p>
+        <p>Absolutely! We offer customization options for many of our products. Please contact our customer service team
+            for more details.</p>
     </section>
 
     <section>
@@ -77,55 +50,20 @@
 
     <section>
         <h3>5. How can I contact customer support?</h3>
-        <p>You can reach our customer support team via email at support@furniturehaven.com or by calling (123) 456-7890.</p>
+        <p>You can reach our customer support team via email at support@furniturehaven.com or by calling (123)
+            456-7890.</p>
     </section>
 
     <section>
         <h3>6. Do you offer warranties on your products?</h3>
-        <p>Yes, most of our products come with a manufacturer's warranty. Please check the product details for specific warranty information.</p>
+        <p>Yes, most of our products come with a manufacturer's warranty. Please check the product details for specific
+            warranty information.</p>
     </section>
 </main>
 <!-- Footer Section -->
-<footer class="site-footer">
-    <div class="footer-container">
-        <div class="footer-column">
-            <h4>Company</h4>
-            <ul>
-                <li><a href="">About us</a></li>
-                <li><a href="">Our services</a></li>
-                <li><a href="">Privacy policy</a></li>
-            </ul>
-        </div>
-        <div class="footer-column">
-            <h4>Support</h4>
-            <ul>
-                <li><a href="">FAQ</a></li>
-                <li><a href="">Contact us</a></li>
-                <li><a href="">Shipping</a></li>
-            </ul>
-        </div>
-        <div class="footer-column">
-            <h4>Follow us</h4>
-            <ul class="social-links">
-                <li>
-                    <img src="../images/facebook.png" alt="logo" />
-                    <a href="">Facebook</a>
-                </li>
-                <li>
-                    <img src="../images/instagram.png" alt="logo" />
-                    <a href="">Instagram</a>
-                </li>
-                <li>
-                    <img src="../images/twitter.png" alt="logo" />
-                    <a href="">Twitter</a>
-                </li>
-            </ul>
-        </div>
-        <p>&copy; 2024 Furniture Haven. All rights reserved.</p>
-    </div>
-</footer>
+<div th:replace="~{fragments/footer :: footer}"></div>
 
-
+<script src="../js/dropdown.js"></script>
 
 
 </body>

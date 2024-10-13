@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/style.css"/>
     <title>Login Page</title>
     <style>
 
@@ -132,28 +132,30 @@
 <body>
 <div class="hero">
 
-<div class="showcase">
-    <div class="login-container">
-        <div class="brand-container">
-           <a th:href="@{/homepage}"> <img class="logo" src="../images/logo.jpg" alt="Furniture Haven" />
-           </a>
-        </div>
-        <h2>Login</h2>
-        <form id="login-form" th:action="@{/login}" method="post">
-            <input type="email" id="email" name="username" placeholder="Username" value="amarbright@gmail.com" required>
-            <input type="password" id="password" name="password" placeholder="Password" value="amar123" required>
-            <button type="submit">Login</button>
+    <div class="showcase">
+        <div class="login-container">
+            <div class="brand-container">
+                <a> <img class="logo" src="../images/logo.jpg" alt="Furniture Haven"/>
+                </a>
+            </div>
+            <h2>Login</h2>
+            <form id="login-form" th:action="@{/login}" method="post">
+                <input type="email" id="email" name="username" placeholder="Username" value="amarbright@gmail.com"
+                       required>
+                <input type="password" id="password" name="password" placeholder="Password" value="amar123" required>
+                <button type="submit">Login</button>
 
-        </form>
-        <div class="links">
-            <a href="#" id="forgot-password">Forgot Password?</a>
-        </div>
-        <div class="signup-container">
-            <span>New Customer?</span>
-            <a th:href="@{/signup}">SignUp</a>
+            </form>
+            <div class="links">
+                <a href="#" id="forgot-password">Forgot Password?</a>
+            </div>
+            <div class="signup-container">
+                <span>New Customer?</span>
+                <a th:href="@{/signup}">SignUp</a>
+            </div>
         </div>
     </div>
 </div>
-</div>
+
 </body>
 </html>

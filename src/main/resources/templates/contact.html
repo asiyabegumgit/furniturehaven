@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="../css/style.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+            rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link
+            href="https://fonts.googleapis.com/css2?family=Moderustic:wght@300..800&display=swap"
+            rel="stylesheet"
+    />
+    <title>Landing Page</title>
+</head>
+<body>
+<!--Header-->
+<div th:replace="~{fragments/header :: header}"></div>
+<!--Header ends-->
+
+h2>Contact Us</h2>
+
+<p>We’d love to hear from you! If you have any questions, comments, or concerns, please feel free to reach out to us
+    using the information below.</p>
+
+<h3>Email</h3>
+<p>You can email us at <a href="mailto:contact@furniturehaven.com">contact@furniturehaven.com</a>.</p>
+
+<h3>Phone</h3>
+<p>Give us a call at (123) 456-7890. Our customer service team is available from 9 AM to 5 PM EST, Monday through
+    Friday.</p>
+
+<h3>Visit Us</h3>
+<p>If you’d like to visit our showroom, we’re located at:</p>
+<address>
+    123 Furniture Ave,<br>
+    Home City, ST 12345<br>
+    USA
+</address>
+
+<h3>Contact Form</h3>
+<p>Alternatively, you can fill out the form below, and we’ll get back to you as soon as possible:</p>
+
+<form action="submit_form.php" method="post"> <!-- Adjust action URL as needed -->
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required><br><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br><br>
+
+    <label for="message">Message:</label><br>
+    <textarea id="message" name="message" rows="4" required></textarea><br><br>
+
+    <button type="submit">Send Message</button>
+</form>
+
+<!-- Footer Section -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+<script src="../js/dropdown.js"></script>
+</body>
+</html>

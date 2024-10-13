@@ -16,62 +16,75 @@
             padding: 20px;
             background-color: #f4f4f4;
         }
+
         .back-to-shopping {
             margin-bottom: 20px;
         }
+
         .back-to-shopping a {
             text-decoration: none;
             color: #2c3e50;
             font-weight: bold;
         }
+
         h1 {
             color: #2c3e50;
             border-bottom: 2px solid #2c3e50;
             padding-bottom: 10px;
         }
+
         .cart-container {
             display: flex;
             gap: 30px;
         }
+
         .cart-items {
             flex: 1;
         }
+
         .product-info {
             display: flex;
             background-color: #fff;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
         }
+
         .product-image {
             width: 200px;
             height: 200px;
             object-fit: cover;
         }
+
         .product-details {
             padding: 20px;
             flex: 1;
         }
+
         .product-name {
             font-size: 18px;
             margin: 0 0 10px;
             color: #2c3e50;
         }
+
         .product-rating {
             color: #f39c12;
             margin-bottom: 10px;
         }
+
         .product-price {
             font-weight: bold;
             font-size: 16px;
             margin-bottom: 10px;
         }
+
         .quantity-control {
             display: flex;
             align-items: center;
             margin-bottom: 10px;
         }
+
         .quantity-btn {
             background-color: #3498db;
             color: white;
@@ -80,11 +93,13 @@
             cursor: pointer;
             font-size: 16px;
         }
+
         .quantity-input {
             width: 40px;
             text-align: center;
             margin: 0 10px;
         }
+
         .remove-btn {
             background-color: #e74c3c;
             color: white;
@@ -93,24 +108,28 @@
             cursor: pointer;
             font-size: 14px;
         }
+
         .order-summary {
             width: 300px;
             background-color: #fff;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
+
         .order-summary h2 {
             color: #2c3e50;
             border-bottom: 1px solid #eee;
             padding-bottom: 10px;
             margin-top: 0;
         }
+
         .order-summary p {
             display: flex;
             justify-content: space-between;
             margin-bottom: 10px;
         }
+
         .checkout-btn {
             background-color: #2ecc71;
             color: white;
@@ -122,12 +141,17 @@
             width: 100%;
             transition: background-color 0.3s;
         }
+
         .checkout-btn:hover {
             background-color: #27ae60;
         }
     </style>
 </head>
 <body>
+<!--Header-->
+<div th:replace="~{fragments/header :: header}"></div>
+<!--Header ends-->
+
 <div class="back-to-shopping">
     <a href="/products">← Back To Shopping</a>
 </div>
@@ -147,10 +171,13 @@
                 <div class="quantity-control">
 
                     <form th:action="@{/cart/update/{productId}(productId=${item.product.id})}" method="post">
-                        <button class="quantity-btn" type="submit" name="action" value="decrease" th:disabled="${item.quantity <= 1}">-</button>
-                        <input type="number" id="quantity" name="quantity" class="quantity-input" th:value="${item.quantity}" min="1"/>
+                        <button class="quantity-btn" type="submit" name="action" value="decrease"
+                                th:disabled="${item.quantity <= 1}">-
+                        </button>
+                        <input type="number" id="quantity" name="quantity" class="quantity-input"
+                               th:value="${item.quantity}" min="1"/>
                         <button class="quantity-btn" type="submit" name="action" value="increase">+</button>
-                        <input type="hidden" name="productId" th:value="${item.product.id}" />
+                        <input type="hidden" name="productId" th:value="${item.product.id}"/>
                     </form>
                 </div>
                 <form th:action="@{/cart/remove/{productId}(productId=${item.product.id})}" method="post">
@@ -164,10 +191,12 @@
     <div class="order-summary" th:if="${cart.items.size()} > 0">
         <h2>Order Summary</h2>
         <p><span>Item Subtotal</span> <span th:text="'$' + ${#numbers.formatDecimal(cart.subtotal, 1, 2)}"></span></p>
-        <p><span>Estimated Tax</span> <span th:text="'$' + ${#numbers.formatDecimal(cart.subtotal * 0.10, 1, 2)}"></span></p>
-        <p><span>Total</span> <span th:text="'$' + ${#numbers.formatDecimal(cart.subtotal + (cart.subtotal * 0.10), 1, 2)}"></span></p>
+        <p><span>Estimated Tax</span> <span
+                th:text="'$' + ${#numbers.formatDecimal(cart.subtotal * 0.10, 1, 2)}"></span></p>
+        <p><span>Total</span> <span
+                th:text="'$' + ${#numbers.formatDecimal(cart.subtotal + (cart.subtotal * 0.10), 1, 2)}"></span></p>
         <form th:action="@{/cart/checkout}" method="post">
-        <button class="checkout-btn">Proceed to Checkout</button>
+            <button class="checkout-btn">Proceed to Checkout</button>
         </form>
     </div>
     <div th:if="${cart.items.size()} <= 0">
@@ -175,6 +204,8 @@
 
     </div>
 </div>
-
+<!-- Footer Section -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+<script src="../js/dropdown.js"></script>
 </body>
 </html>
