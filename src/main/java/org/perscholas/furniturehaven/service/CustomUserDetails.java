@@ -1,4 +1,4 @@
-package org.perscholas.furniturehaven.model;
+package org.perscholas.furniturehaven.service;
 
 import lombok.Data;
 

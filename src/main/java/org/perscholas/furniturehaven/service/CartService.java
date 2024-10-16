@@ -113,4 +113,9 @@ public class CartService {
         cartRepository.save(cart);
         return cart;
     }
+    public void deleteCart(Long customerId)
+    {
+        Cart cart = findByCustomerId(customerId);
+        cartRepository.delete(cart);
+    }
 }

@@ -1,3 +1,5 @@
+
+
 body{
     margin: 0;
     height: auto;
@@ -18,20 +20,20 @@ body{
 .shopping-cart{
     width: 30px;
 }
- .brand-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 20px;
-    }
+.brand-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+}
 .logo {
-    width: 50px; 
+    width: 50px;
     height: auto;
     margin-right: 10px;
 }
 .brand-name {
-    font-size: 2rem; 
-    color: #333; 
+    font-size: 2rem;
+    color: #333;
 }
 nav > ul{
     list-style: none;
@@ -59,12 +61,13 @@ nav > ul{
 }
 
 .nav-content:hover {
-    border-color: #007BFF; /* Change border color on hover */
+    border-color: #606060; /* Change border color on hover */
     background-color: #e9ecef; /* Change background color on hover */
 }
 .nav-link:hover{
     color: #0e0e0e
 }
+
 .dropdown-content {
     display: none; /* Hide by default */
     position: absolute; /* Position it relative to the nav-content */
@@ -83,37 +86,52 @@ nav > ul{
     text-decoration: none;
     padding: 10px 15px;
     display: block;
+    font-size: 14px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 600;
+
 }
 
 .dropdown-item:hover {
     background-color: #e9ecef; /* Highlight on hover */
+    color: #0e0e0e
 }
-.search{
-    
-    width: 330px;
-    border: 1 px;
-    padding: 08px;
-    border-color: black;
-      
-}
-input{
-    
-    border:none;
-    outline: 0px;
-    width:300px;
-}
-.icon-search{
-    color:#606060;
-
+.search-container {
+    display: flex;
+    justify-content: center; /* Center the form if needed */
 }
 
-/* Hero Styles */
+.search-form {
+    display: flex;
+}
+.category-dropdown {
+    height: 40px; /* Match the height of the input and button */
+    margin-right: 10px; /* Space between dropdown and search bar */
+}
+input {
+    height: 40px; /* Adjust height as needed */
+    outline: none;
+    width: 300px; /* Set width */
+    padding: 8px; /* Consistent padding */
+    border: 1px solid black; /* Add border styling */
+    box-sizing: border-box; /* Include padding and border in width/height */
+}
+
+button {
+    height: 40px; /* Match the height of the input */
+    background-color: transparent; /* Optional: make the background transparent */
+    border: 1px solid black; /* Match border styling */
+    cursor: pointer; /* Pointer cursor on hover */
+    padding: 0 10px; /* Adjust padding */
+    display: flex; /* Center the icon */
+    align-items: center; /* Center vertically */
+}/* Hero Styles */
 
 @keyframes heroBackgroundFade {
-    0%, 100% { background-image: url(../images/hero1.jpg); }   
-    25% { background-image: url(../images/hero2.jpg); }   
-    50% { background-image: url(../images/hero3.jpg); }   
-    75% { background-image: url(../images/hero4.jpg); }    
+    0%, 100% { background-image: url(../images/hero1.jpg); }
+    25% { background-image: url(../images/hero2.jpg); }
+    50% { background-image: url(../images/hero3.jpg); }
+    75% { background-image: url(../images/hero4.jpg); }
 }
 
 .hero{
@@ -285,6 +303,24 @@ input{
         gap: 20px;
     }
 }
+/*pagination*/
+.pagination {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.pagination a {
+    margin: 0 10px;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.pagination a:hover {
+    background-color: #0056b3;
+}
 
 /* Gallary */
 
@@ -313,7 +349,7 @@ input{
 
 .img1{
     grid-row: span 2;
-            
+
 }
 
 .gallery-grid div{
@@ -439,13 +475,9 @@ input{
     .footer-column {
         margin-bottom: 20px;
     }
-    
+
     .social-links {
         flex-direction: column;
         align-items: center;
     }
 }
-
-
-
-

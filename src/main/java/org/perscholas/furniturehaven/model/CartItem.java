@@ -19,7 +19,6 @@ public class CartItem {
     private int quantity;
 
     private double price;
-
     public double getTotalPrice() {
         return quantity * price;
     }

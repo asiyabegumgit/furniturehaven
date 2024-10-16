@@ -6,23 +6,33 @@
     <title>E-commerce Billing Details</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
           rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/style.css"/>
     <style>
         body {
             font-family: "Roboto", sans-serif;
             line-height: 1.6;
             margin: 0;
-            padding: 20px;
+
             background-color: #f4f4f4;
             color: #333;
         }
-
         .container {
-            max-width: 800px;
+
+            margin: 0;
+            background: white;
+
+        }
+        .bill-to {
+
             margin: auto;
             background: white;
             padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+
+                border-radius: 8px;
+                overflow: hidden;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
         }
 
         h1, h2 {
@@ -34,25 +44,20 @@
             margin-bottom: 20px;
         }
 
-        label {
+        .form-group input {
             display: block;
             margin-bottom: 5px;
             font-weight: 500;
-        }
-
-        input[type="text"], input[type="email"], input[type="tel"] {
-            width: 100%;
             padding: 10px;
             border: 1px solid #ddd;
             border-radius: 4px;
             font-size: 16px;
             transition: border-color 0.3s;
-        }
-
-        input[type="text"]:focus, input[type="email"]:focus, input[type="tel"]:focus {
-            border-color: #3498db;
+           /* border-color: #3498db;*/
             outline: none;
         }
+
+
 
         .order-summary {
             background-color: #f9f9f9;
@@ -63,7 +68,7 @@
         }
 
         .order-summary table {
-            width: 100%;
+            width:600px;
             border-collapse: collapse;
             margin-bottom: 20px;
         }
@@ -79,6 +84,7 @@
         }
 
         .order-total {
+            width:600px;
             border-top: 2px solid #ddd;
             padding-top: 15px;
         }
@@ -166,11 +172,13 @@
 <!--Header ends-->
 
 <div class="container">
-    <div class="back-to-shopping">
-        <a href="/products">← Back To Shopping</a>
-    </div>
-    <h1>Billing Details</h1>
-    <form th:action="@{/homepage}" method="post">
+
+    <div class="bill-to">
+        <div class="back-to-shopping">
+            <a href="/products">← Back To Shopping</a>
+        </div>
+    <h2>Bill To:</h2>
+    <form th:action="@{/cart/receipt}" method="post">
         <div class="form-group">
             <label for="name">Full Name:</label>
             <input type="text" id="name" name="name" required>
@@ -205,12 +213,14 @@
             <table>
                 <tr>
                     <th>Product</th>
+                    <th> </th>
                     <th>Quantity</th>
                     <th>Price</th>
                     <th>Total</th>
                 </tr>
                 <tr th:each="item : ${cart.items}">
-                    <td th:text="${item.product.name}">Product</td>
+                    <td colspan="2"><div><img th:src="${item.product.image}" alt="Product Image" style="width: 50px; height: 50px">
+                        <span th:text="${item.product.description}"></span></div></td>
                     <td th:text="${item.quantity}">Quantity</td>
                     <td th:text="${item.price}">Price</td>
                     <td th:text="${item.totalPrice}">Total</td>
@@ -258,6 +268,7 @@
 
         <button type="submit" class="place-order-btn">Place Order</button>
     </form>
+    </div>
 </div>
 <!-- Footer Section -->
 <div th:replace="~{fragments/footer :: footer}"></div>

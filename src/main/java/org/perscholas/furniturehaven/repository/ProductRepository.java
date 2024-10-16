@@ -11,7 +11,8 @@ import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
-    @Query("SELECT p FROM Product p WHERE p.name LIKE %:keyword% OR p.description LIKE %:keyword%")
-    List<Product> searchProducts(String keyword);
+    @Query("SELECT p FROM Product p WHERE (p.name LIKE CONCAT('%', :keyword, '%') OR p.description LIKE CONCAT('%', :keyword, '%')) AND p.categoryId = :categoryId")
+    List<Product> searchProducts(@Param("keyword") String keyword, @Param("categoryId") Long categoryId);
+    Page<Product> findByCategoryId(Long categoryId,Pageable pageable);
 }
 

@@ -1,13 +1,11 @@
 package org.perscholas.furniturehaven.service;
 
-import org.perscholas.furniturehaven.model.CustomUserDetails;
+import org.perscholas.furniturehaven.model.Admin;
 import org.perscholas.furniturehaven.model.Customer;
+import org.perscholas.furniturehaven.repository.AdminRepository;
 import org.perscholas.furniturehaven.repository.CustomerRepository;
-import org.perscholas.furniturehaven.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -19,20 +17,35 @@ import java.util.Optional;
 public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
     private CustomerRepository customerRepository;
+    @Autowired
+    private AdminRepository adminRepository;
 
     @Override
     public CustomUserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // Fetch the user from the repository
-
+        // Try to find the user as a Shopper
         Optional<Customer> optionalCustomer = customerRepository.findByUsername(username);
-
         if (optionalCustomer.isPresent()) {
-            return new CustomUserDetails(optionalCustomer.get().getUsername(),optionalCustomer.get().getPassword(),optionalCustomer.get().getName(),Collections.singleton(new SimpleGrantedAuthority("ROLE_CUSTOMER")));
-
+            return new CustomUserDetails(
+                    optionalCustomer.get().getUsername(),
+                    optionalCustomer.get().getPassword(),
+                    optionalCustomer.get().getName(),
+                    Collections.singleton(new SimpleGrantedAuthority("ROLE_CUSTOMER"))  // Correct role
+            );
         }
 
-        // Manually prefix the role with 'ROLE_' if it's not already prefixed
-        throw new UsernameNotFoundException("Customer not found");
+        // Try to find the user as an AdminUser
+        Optional<Admin> optionalAdmin = adminRepository.findByUsername(username);
+        if (optionalAdmin.isPresent()) {
+            return new CustomUserDetails(
+                    optionalAdmin.get().getUsername(),
+                    optionalAdmin.get().getPassword(),
+                    optionalAdmin.get().getName(),
+                    Collections.singleton(new SimpleGrantedAuthority("ROLE_ADMIN"))  // Correct role
+            );
+        }
+
+
+        throw new UsernameNotFoundException("user not found");
     }
 
 }

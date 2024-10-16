@@ -1,5 +1,6 @@
 package org.perscholas.furniturehaven.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -16,13 +17,33 @@ public class Product {
     @Lob
     private String description;
     private String image;
-    private String category;
+
+    @Column
+    private Long categoryId;
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn
+    protected Category category;
+
     private String brand;
-    private String rating;
-    @Column(name = "created_at", updatable = false)
+
+    private String rating="5";
+    @Column
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
-    @Column(name = "updated_at", updatable = false)
+
+    @Column
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = new Date();
+    }
+
 }

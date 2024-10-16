@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Moderustic:wght@300..800&display=swap" rel="stylesheet"/>
+    <title>Admin Page</title>
+    <link rel="stylesheet" href="/css/style.css"/>
+    <style>
+        /* Container */
+        .admin-container {
+            width: 90%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Upload Section */
+        .upload-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .upload-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: nowrap;
+        }
+
+        .file-upload {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+        }
+
+        .file-upload input[type="file"] {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+
+        .search-form {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .category-dropdown,
+        #search {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .category-dropdown {
+            flex: 1;
+        }
+
+        #search {
+            flex: 2;
+        }
+
+        .admin-container button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #0056b3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .admin-container button:hover {
+            background-color:#2980b9 ;
+        }
+        .product-content tr{
+            text-align: left;
+        }
+        /* Responsive design */
+        @media (max-width: 1200px) {
+            .upload-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .file-upload, .search-container {
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+<!--Header-->
+<div th:replace="~{fragments/header :: header}"></div>
+<!--Header ends-->
+
+<div class="admin-container">
+
+    <div class="upload-content">
+        <div class="upload-row">
+            <form th:action="@{/products/upload}" method="post" enctype="multipart/form-data" class="file-upload">
+                <label for="file">Select CSV file:</label>
+                <input type="file" id="file" name="file" accept=".csv" required>
+                <button type="submit">Upload Products</button>
+            </form>
+
+            <div class="search-container">
+                <form th:action="@{/products/search}" method="post" class="search-form">
+                    <select name="categoryId" class="category-dropdown">
+                        <option value="">Category</option>
+                        <th:block th:each="category:${categories}">
+                            <option th:value="${category.categoryId}" th:text="${category.categoryName}"></option>
+                        </th:block>
+                    </select>
+                    <input type="text" id="search" placeholder="Search.." name="keyword">
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="list-product">
+        <div class="product-content" >
+            <h1>Product List</h1>
+            <form th:action="@{/products}" method="post">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Image</th>
+                        <th>Price</th>
+                        <th>Category</th>
+                        <th>Brand</th>
+                        <th>Rating</th>
+                        <th colspan="2">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="product:${products}">
+                        <td th:text="${product.name}"></td>
+                        <td th:text="${product.description}"></td>
+                        <td th:text="${product.image}"></td>
+                        <td th:text="${product.price}"></td>
+                        <td th:text="${product.category}"></td>
+                        <td th:text="${product.brand}"></td>
+                        <td th:text="${product.rating}"></td>
+                        <td>
+                            <button type="submit" name="action" value="edit">Edit</button></td>
+                        <td>
+                            <input type="hidden" name="productId" th:value="${product.id}">
+
+                            <button type="submit" name="action" value="delete">Delete</button>
+                        </td>
+                    </tr>
+                    </tbody>
+               </table>
+            </form>
+        </div>
+        <div class="pagination">
+    <span th:if="${products.hasPrevious()}">
+        <a th:href="@{/admin(page=${products.number - 1}, size=${products.size})}">Previous</a>
+    </span>
+            <span th:if="${products.hasNext()}">
+        <a th:href="@{/admin(page=${products.number + 1}, size=${products.size})}">Next</a>
+    </span>
+            <span>Page <span th:text="${products.number + 1}"></span> of <span th:text="${products.totalPages}"></span></span>
+        </div>
+
+    </div>
+
+
+
+</div>
+<!-- Footer Section -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<script src="/js/dropdown.js"></script>
+
+</body>
+</html>

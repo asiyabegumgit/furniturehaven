@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Product</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .edit-container {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .edit-container h1 {
+            text-align: center;
+            color: #333;
+        }
+        .edit-container form {
+            display: grid;
+            gap: 15px;
+        }
+        .edit-container label {
+            font-weight: bold;
+        }
+        .edit-container input, textarea, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .edit-container textarea {
+            height: 100px;
+        }
+        .edit-container button {
+            background-color:#0056b3;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .edit-container button:hover {
+            background-color: #007BFF;
+        }
+    </style>
+</head>
+<body>
+<div class="edit-container">
+    <h1>Edit Product</h1>
+    <form id="editProductForm" th:action="@{/products/update}" method="post">
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" th:value="${product.name}">
+        </div>
+        <div>
+            <label for="price">Price:</label>
+            <input type="number" id="price" name="price" step="0.01" th:value="${product.price}">
+        </div>
+        <div>
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" th:text="${product.description}"></textarea>
+        </div>
+        <div>
+            <label for="image">Image URL:</label>
+            <input type="text" id="image" name="image" th:value="${product.image}">
+        </div>
+        <div>
+            <label for="categoryId">Category ID:</label>
+            <input type="number" id="categoryId" name="categoryId" th:value="${product.categoryId}">
+        </div>
+        <div>
+            <label for="brand">Brand:</label>
+            <input type="text" id="brand" name="brand" th:value="${product.brand}">
+        </div>
+        <div>
+            <label for="rating">Rating:</label>
+            <select id="rating" name="rating">
+                <option value="1" th:selected="${product.rating == 1}">1</option>
+                <option value="2" th:selected="${product.rating == 2}">2</option>
+                <option value="3" th:selected="${product.rating == 3}">3</option>
+                <option value="4" th:selected="${product.rating == 4}">4</option>
+                <option value="5" th:selected="${product.rating == 5}">5</option>
+            </select>
+        </div>
+        <input type="hidden" name="id" th:value="${product.id}">
+        <button type="submit">Update Product</button>
+    </form>
+</div>
+</body>
+</html>

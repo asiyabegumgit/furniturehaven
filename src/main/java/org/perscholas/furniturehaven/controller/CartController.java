@@ -109,6 +109,25 @@ public String updateItemQuantity(@PathVariable Long productId,
 
         return "checkout"; // A Thymeleaf template that displays the receipt
     }
+    @PostMapping("/receipt")
+    public String showReceiptPage(Authentication authentication) {
+        // Get the authenticated user's username
+        String username = authentication.getName();
+
+        // Find the customer using their username
+        Customer customer = customerService.findByUsername(username).orElseThrow(() -> new RuntimeException("Customer not found"));
+
+        // Retrieve the customer's cart
+        cartService.deleteCart(customer.getId());
+
+        // Prepare the receipt model attributes
+      //  model.addAttribute("customer", customer);
+       // model.addAttribute("cart", cart);
+
+
+        return "receipt"; // A Thymeleaf template that displays the receipt
+    }
+
 
     public Customer getCurrentCustomer() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

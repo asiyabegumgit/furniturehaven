@@ -25,9 +25,11 @@ public class SecurityConfig {
         http
                 .cors(withDefaults())
                 .authorizeRequests(authorizeRequests -> authorizeRequests
-                        .requestMatchers("/", "/css/**", "/js/**", "/images/**","/home","/home/**","/products", "/products/**", "/products/search/**","/services","/privacy","/signup","/about").permitAll()  // Public access
+                        .requestMatchers("/", "/css/**", "/js/**", "/images/**","/login","/home","/home/**","/products", "/products/**","/products/category/**", "/products/search/**","/services","/privacy","/signup","/about","/receipt").permitAll()  // Public access
                         .requestMatchers( "/logout").hasAnyRole("CUSTOMER", "ADMIN")
                         .requestMatchers("/cart/**").hasRole("CUSTOMER")
+                        .requestMatchers("/admin").hasRole("ADMIN")
+
                         .anyRequest().authenticated())  // All other requests require authentication
 
                 .formLogin(formLogin -> formLogin
@@ -36,14 +38,14 @@ public class SecurityConfig {
                         .successHandler((request, response, authentication) -> {
                             authentication.getAuthorities().forEach(grantedAuthority -> {
                                 String role = grantedAuthority.getAuthority();
-
+                                System.out.println("0000p"+authentication.getName());
                                 try {
 
-                                    //   if (role.equals("ROLE_CUSTOMER")) {
-
-
-                                    response.sendRedirect("/home");  // Employee redirect
-                                    // }
+                                   if (role.equals("ROLE_ADMIN")) {
+                                        response.sendRedirect("/admin");
+                                    }
+                                    else
+                                        response.sendRedirect("/home");
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }

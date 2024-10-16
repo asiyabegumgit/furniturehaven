@@ -23,6 +23,12 @@ public class Cart {
     private double totalPriceWithTax;
 
     private static final double TAX_RATE = 0.1; // Example tax rate of 10%
+    public int getTotalQuantity()
+    {
+        return items.stream()
+                .mapToInt(CartItem::getQuantity)
+                .sum();
+    }
 
     public void calculateTotalPrice() {
         subtotal = items.stream()

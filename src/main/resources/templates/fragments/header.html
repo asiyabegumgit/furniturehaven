@@ -9,24 +9,33 @@
 <header th:fragment="header">
     <nav class="nav-bar">
         <div class="brand-container">
-            <img class="logo" src="../images/logo.jpg" alt="Furniture Haven"/>
+            <img class="logo" src="/images/logo.jpg" alt="Furniture Haven"/>
             <h1 class="brand-name">Furniture Haven</h1>
         </div>
 
         <ul>
             <li>
-                <div class="search-container">
-                    <form th:action="@{/products/search}" method="get">
+                <div class="search-container" th:if="${#authentication.principal != 'anonymousUser' and #authentication.principal.name!='Admin'}">
+
+                    <form th:action="@{/products/search}" method="get" class="search-form" >
+                        <select name="category" class="category-dropdown">
+                        <option value="">Category</option>
+                            <th:block th:each="category:${categories}">
+                        <option th:value="${category.categoryId}" name="categoryId" th:text="${category.categoryName}"></option>
+                            </th:block>
+                        <!-- Add more categories as needed -->
+                        </select>
+
                         <input type="text" id="search" placeholder="Search.." name="keyword">
-                        <button type="submit"><i class="fa fa-search"></i></button>
+                        <button type="submit" style="font-size: 21px;"><i class="fa fa-search"></i></button>
                     </form>
                 </div>
-            </li>
-            <li><a class="nav-link" th:href="@{/home}">Home</a></li>
+                </li>
+            <li><a class="nav-link" th:href="@{/home}" th:if="${#authentication.principal != 'anonymousUser' and #authentication.principal.name!='Admin'}">Home</a></li>
 
             <li>
                 <div class="nav-content">
-                    <img class="shopping-cart" src="../images/user-login.png" alt="User Login"/>
+                    <img class="shopping-cart" src="/images/user-login.png" alt="User Login"/>
                     <div id="signInLink">
                             <span class="nav-link"
                                   th:if="${#authentication.principal != 'anonymousUser'}"
@@ -45,9 +54,9 @@
                     </div>
                 </div>
             </li>
-            <li>
+            <li th:if="${#authentication.principal != 'anonymousUser' and #authentication.principal.name!='Admin'}">
                 <a class="nav-link" th:href="@{/cart}">
-                    <img class="shopping-cart" src="../images/shopping-bag.png" alt="Shopping Bag"/>
+                    <i class="fa fa-shopping-cart"></i>
                 </a>
             </li>
         </ul>

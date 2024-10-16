@@ -1,7 +1,9 @@
 package org.perscholas.furniturehaven.controller;
 
 import jakarta.servlet.http.HttpServletResponse;
+import org.perscholas.furniturehaven.model.Category;
 import org.perscholas.furniturehaven.model.Customer;
+import org.perscholas.furniturehaven.service.CategoryService;
 import org.perscholas.furniturehaven.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,23 +12,36 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @Controller
 
 public class AuthController {
 
     @Autowired
     private CustomerService customerService;
+    @Autowired
+    private CategoryService categoryService;
+
     // Show the landing page
     @GetMapping({"/","/home"})
-    public String showHomePage(HttpServletResponse response) {
+    public String showHomePage(Model model) {
+        List<Category> categories=categoryService.getAllCategories();
+        model.addAttribute("categories", categories);
         return "homepage";
     }
+
     // Show the login form
     @GetMapping("/login")
     public String showLoginForm() {
         return "login";
     }
-
+    // Show the home page
+    @PostMapping("/login")
+    public String showHomePage() {
+        System.out.println("--------home page");
+        return "homepage";
+    }
 
     // Show the FAQ page
     @GetMapping( "/faq")

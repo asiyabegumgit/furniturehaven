@@ -6,8 +6,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/style.css"/>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <title>Login Page</title>
     <style>
+
+        @keyframes heroBackgroundFade {
+            0%, 100% { background-image: url(../images/hero1.jpg); }
+            25% { background-image: url(../images/hero2.jpg); }
+            50% { background-image: url(../images/hero3.jpg); }
+            75% { background-image: url(../images/hero4.jpg); }
+        }
 
         .hero {
             background-image: url(../images/hero1.jpg);
@@ -48,19 +58,19 @@
             margin-bottom: 20px;
         }
 
-        form {
+        .login-form {
             display: flex;
             flex-direction: column;
         }
 
-        input {
+        .input-box {
             margin: 10px 0;
             padding: 10px;
             border: 1px solid #ddd;
             border-radius: 4px;
         }
 
-        button {
+        .input-button {
             background-color: #007bff;
             color: white;
             border: none;
@@ -70,7 +80,7 @@
             margin-top: 10px;
         }
 
-        button:hover {
+        .input-button:hover {
             background-color: #0056b3;
         }
 
@@ -130,20 +140,23 @@
     </style>
 </head>
 <body>
+<!--Header-->
+<div th:replace="~{fragments/header :: header}"></div>
+<!--Header ends-->
 <div class="hero">
 
     <div class="showcase">
         <div class="login-container">
             <div class="brand-container">
-                <a> <img class="logo" src="../images/logo.jpg" alt="Furniture Haven"/>
+                <a th:href="@{/home}"> <img class="logo" src="/images/logo.jpg" alt="Furniture Haven"/>
                 </a>
             </div>
             <h2>Login</h2>
-            <form id="login-form" th:action="@{/login}" method="post">
-                <input type="email" id="email" name="username" placeholder="Username" value="amarbright@gmail.com"
+            <form id="login-form" class="login-form" th:action="@{/login}" method="post">
+                <input class="input-box" type="email" id="email" name="username" placeholder="Username" value="admin@furniturehaven.com"
                        required>
-                <input type="password" id="password" name="password" placeholder="Password" value="amar123" required>
-                <button type="submit">Login</button>
+                <input class="input-box" type="password" id="password" name="password" placeholder="Password" value="adminUser123" required>
+                <button class="input-button" type="submit">Login</button>
 
             </form>
             <div class="links">
@@ -156,6 +169,9 @@
         </div>
     </div>
 </div>
+<!-- Footer Section -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+<script src="/js/dropdown.js"></script>
 
 </body>
 </html>

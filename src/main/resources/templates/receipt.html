@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="../css/style.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+            rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link
+            href="https://fonts.googleapis.com/css2?family=Moderustic:wght@300..800&display=swap"
+            rel="stylesheet"
+    />
+
+    <title>Bill Receipt</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        h3{
+            font-size: 1.2em;
+            font-weight: bold;
+            text-align: center;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+        .bill-to {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        .bill-to h2 {
+            margin-top: 0;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .total {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<!--Header-->
+<div th:replace="~{fragments/header :: header}"></div>
+<!--Header ends-->
+<div class="container">
+    <div class="back-to-shopping">
+        <a href="/products">← Back To Shopping</a>
+    </div>
+    <h1>Thank you!</h1>
+    <h3>Your order got placed</h3>
+    <p><strong>Order Number:</strong> #123456</p>
+    <p><strong>Time of Order:</strong> <span id="current-time"></span></p>
+    <p>Payment received on: <span id="current-date"></span></p>
+    <div class="bill-to">
+        <h2>Bill To:</h2>
+        <p>
+            John Doe<br>
+            123 Main St<br>
+            Anytown, ST 12345<br>
+            USA
+        </p>
+    </div>
+
+</div>
+<script>
+    document.getElementById('current-date').textContent = new Date().toLocaleDateString();
+    document.getElementById('current-time').textContent = new Date().toLocaleTimeString();
+</script>
+<!-- Footer Section -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+<script src="../js/dropdown.js"></script>
+</body>
+</html>
