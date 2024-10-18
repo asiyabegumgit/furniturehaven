@@ -90,9 +90,9 @@ public class CartController {
 
         if (itemToUpdate != null) {
             int newQuantity = itemToUpdate.getQuantity();
-            System.out.println("------------>+newQuantity");
+           
             if ("increase".equals(action)) {
-                System.out.println("------------>+increase");
+               
                 newQuantity++;
             } else if ("decrease".equals(action)) {
                 newQuantity--;
