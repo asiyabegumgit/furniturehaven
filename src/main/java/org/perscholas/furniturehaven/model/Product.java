@@ -27,7 +27,7 @@ public class Product {
 
     private String brand;
 
-    private String rating="5";
+    private String rating;
     @Column
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;

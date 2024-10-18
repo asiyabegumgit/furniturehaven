@@ -82,17 +82,17 @@
         <a href="/products">← Back To Shopping</a>
     </div>
     <h1>Thank you!</h1>
-    <h3>Your order got placed</h3>
-    <p><strong>Order Number:</strong> #123456</p>
-    <p><strong>Time of Order:</strong> <span id="current-time"></span></p>
-    <p>Payment received on: <span id="current-date"></span></p>
+    <h3>Your order has been placed</h3>
+    <p><strong>Order Number:</strong>  <span id="order-number" th:text="${order.orderNumber}"></span></p>
+    <p><strong>Total Amount:</strong> <span id="total-amount" th:text="${order.totalAmount}"></span></p>
+    <p>Payment received on: <span id="current-date" th:text="${order.orderDate}"></span></p>
     <div class="bill-to">
         <h2>Bill To:</h2>
-        <p>
-            John Doe<br>
-            123 Main St<br>
-            Anytown, ST 12345<br>
-            USA
+        <p th:text="${order.getName()}"><br>
+        <p th:text="${order.getAddress()}"><br>
+        <p th:text="${order.getCity()}"><br>
+        <p th:text="${order.getState()}"><br>
+        <p th:text="${order.getZip()}"><br>
         </p>
     </div>
 

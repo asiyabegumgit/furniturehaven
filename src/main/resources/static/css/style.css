@@ -321,7 +321,16 @@ button {
 .pagination a:hover {
     background-color: #0056b3;
 }
+/*Back to Shopping*/
+.back-to-shopping {
+    margin-bottom: 20px;
+}
 
+.back-to-shopping a {
+    text-decoration: none;
+    color: #2c3e50;
+    font-weight: bold;
+}
 /* Gallary */
 
 .gallery{

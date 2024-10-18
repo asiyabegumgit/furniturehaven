@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="../css/style.css"/>
+    <link rel="stylesheet" href="/css/style.css"/>
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link
@@ -168,27 +168,15 @@
                         <td><input class="input-box" type="password" id="confirm-password" name="confirm-password" required></td>
                     </tr>
                     <tr>
-                        <td></td>
-                        <td>
-                            <select id="refer" name="refer" style="font-family: Arial, sans-serif;">
-                                <option value="" disabled selected>How did you hear about us?</option>
-                                <option value="facebook">Facebook</option>
-                                <option value="linkedin">Linkedin</option>
-                                <option value="google">Google</option>
-                            </select>
-                            <div class="error-message" id="referError">Please select how you heard about us.</div>
+                        <td>&nbsp;</td>
+                        <td><input style="height: 20px; width: 20px" type="radio" id="terms" name="terms"  checked>
+
+                        <label for="terms">I agree to the Terms of service and Privacy policy.</label>
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2">
-                            <div class="checkbox-group">
-                                <input type="checkbox" id="terms" name="terms" required>
-                                <label for="terms">I agree to the Terms of service and Privacy policy.</label>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" style="text-align: center;">
+                        <td>&nbsp;</td>
+                        <td  style="text-align: center;">
                             <button class="input-button" type="submit">Sign Up</button>
                         </td>
                     </tr>

@@ -75,15 +75,18 @@
         }
 
         .admin-container button {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            background-color: #0056b3;
+            margin: 0 10px;
+            padding: 8px 16px;
+            background-color: #007bff;
             color: white;
-            border: none;
+            text-decoration: none;
             border-radius: 5px;
-            transition: background-color 0.3s ease;
         }
+
+        .pagination a:hover {
+            background-color: #0056b3;
+        }
+
 
         .admin-container button:hover {
             background-color:#2980b9 ;
@@ -124,10 +127,10 @@
                     <select name="categoryId" class="category-dropdown">
                         <option value="">Category</option>
                         <th:block th:each="category:${categories}">
-                            <option th:value="${category.categoryId}" th:text="${category.categoryName}"></option>
+                            <option th:value="${category.categoryId}" th:text="${category.categoryName}" th:selected="${category.categoryId == categoryId}"></option>
                         </th:block>
                     </select>
-                    <input type="text" id="search" placeholder="Search.." name="keyword">
+                    <input type="text" id="search" placeholder="Search.." name="keyword" th:value="${keyword}">
                     <button type="submit"><i class="fa fa-search"></i></button>
                 </form>
             </div>

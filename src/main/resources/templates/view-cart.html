@@ -25,15 +25,7 @@
             background-color: #f4f4f4;
         }
 
-        .back-to-shopping {
-            margin-bottom: 20px;
-        }
 
-        .back-to-shopping a {
-            text-decoration: none;
-            color: #2c3e50;
-            font-weight: bold;
-        }
 
         h1 {
             color: #2c3e50;
@@ -91,6 +83,7 @@
             display: flex;
             align-items: center;
             margin-bottom: 10px;
+
         }
 
         .quantity-btn {
@@ -100,15 +93,20 @@
             padding: 5px 10px;
             cursor: pointer;
             font-size: 16px;
+            width: 30px;
+            height: 30px;
         }
 
         .quantity-input {
-            width: 40px;
+            height: 30px;
+            width: 30px;
             text-align: center;
             margin: 0 10px;
         }
 
         .remove-btn {
+            width: 70px;
+            height: 30px;
             background-color: #e74c3c;
             color: white;
             border: none;
@@ -176,26 +174,25 @@
                     <span th:each="star : ${#numbers.sequence(1, item.product.rating)}" th:text="'★'"></span>
                 </p>
                 <p class="product-price" th:text="'$' + ${item.product.price}"></p>
-                <div class="quantity-control">
 
                     <form th:action="@{/cart/update/{productId}(productId=${item.product.id})}" method="post">
-                        <button class="quantity-btn" type="submit" name="action" value="decrease"
-                                th:disabled="${item.quantity <= 1}">-
-                        </button>
-                        <input type="number" id="quantity" name="quantity" class="quantity-input"
-                               th:value="${item.quantity}" min="1"/>
+                        <div class="quantity-control">
+                        <button class="quantity-btn" type="submit" name="action" value="decrease" th:disabled="${item.quantity <= 1}">-</button>
+                        <input class ="quantity-input" type="text" id="quantity" name="quantity" th:value="${item.quantity}" min="1">
                         <button class="quantity-btn" type="submit" name="action" value="increase">+</button>
-                        <input type="hidden" name="productId" th:value="${item.product.id}"/>
+                        <input type="hidden" name="productId" th:value="${item.product.id}">
+                        </div>
+                    </form>
+                    <form th:action="@{/cart/remove/{productId}(productId=${item.product.id})}" method="post">
+                        <button class="remove-btn" type="submit">Remove</button>
                     </form>
                 </div>
-                <form th:action="@{/cart/remove/{productId}(productId=${item.product.id})}" method="post">
-                    <button class="remove-btn" type="submit">Remove</button>
-                </form>
+
 
 
             </div>
         </div>
-    </div>
+
     <div class="order-summary" th:if="${cart.items.size()} > 0">
         <h2>Order Summary</h2>
         <p><span>Item Subtotal</span> <span th:text="'$' + ${#numbers.formatDecimal(cart.subtotal, 1, 2)}"></span></p>

@@ -23,6 +23,8 @@ public abstract class User {
     @NotBlank(message = "Password is required")
     private String password;
 
+    private String resetToken;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 }

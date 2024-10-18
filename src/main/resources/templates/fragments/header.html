@@ -15,23 +15,24 @@
 
         <ul>
             <li>
-                <div class="search-container" th:if="${#authentication.principal != 'anonymousUser' and #authentication.principal.name!='Admin'}">
+                <div class="search-container" th:if="${(#authentication.principal != 'anonymousUser' and #authentication.principal.name!='Admin')||(#authentication.principal=='anonymousUser')}">
 
                     <form th:action="@{/products/search}" method="get" class="search-form" >
-                        <select name="category" class="category-dropdown">
+                        <select name="categoryId" class="category-dropdown" required>
                         <option value="">Category</option>
                             <th:block th:each="category:${categories}">
-                        <option th:value="${category.categoryId}" name="categoryId" th:text="${category.categoryName}"></option>
+                        <option th:value="${category.categoryId}" th:text="${category.categoryName}"></option>
                             </th:block>
                         <!-- Add more categories as needed -->
                         </select>
 
-                        <input type="text" id="search" placeholder="Search.." name="keyword">
+                        <input type="text" id="search" placeholder="Search.." name="keyword" required>
+
                         <button type="submit" style="font-size: 21px;"><i class="fa fa-search"></i></button>
                     </form>
                 </div>
                 </li>
-            <li><a class="nav-link" th:href="@{/home}" th:if="${#authentication.principal != 'anonymousUser' and #authentication.principal.name!='Admin'}">Home</a></li>
+            <li><a class="nav-link" th:href="@{/home}" th:if="${(#authentication.principal != 'anonymousUser' and #authentication.principal.name!='Admin')||(#authentication.principal=='anonymousUser')}">Home</a></li>
 
             <li>
                 <div class="nav-content">

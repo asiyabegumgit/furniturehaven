@@ -56,112 +56,121 @@
            /* border-color: #3498db;*/
             outline: none;
         }
-
-
-
         .order-summary {
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-radius: 8px;
             margin-bottom: 30px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
-
         .order-summary table {
-            width:600px;
+            width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
         }
-
-        .order-summary th, .order-summary td {
-            text-align: left;
+         .order-summary td {
+            text-align: right;
             padding: 12px;
             border-bottom: 1px solid #ddd;
         }
+        .order-summary th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            text-align:right;
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
 
+        }
         .order-summary tr:last-child td {
             border-bottom: none;
         }
-
         .order-total {
-            width:600px;
-            border-top: 2px solid #ddd;
-            padding-top: 15px;
-        }
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
 
+        }
         .order-total-row {
             display: flex;
             justify-content: space-between;
             margin-bottom: 10px;
         }
-
         .order-total-row:last-child {
             font-weight: bold;
             font-size: 1.2em;
             margin-top: 10px;
+            border-top: 2px solid #ddd;
+            padding-top: 10px;
         }
-
         .payment-options {
-            display: flex;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
             margin-bottom: 30px;
         }
-
         .payment-option {
-            flex: 1 0 calc(50% - 15px);
-            background-color: #f9f9f9;
-            padding: 15px;
+            background-color: #f8f9fa;
             border-radius: 8px;
             border: 1px solid #ddd;
             display: flex;
-            align-items: center;
-            transition: background-color 0.3s;
-        }
 
-        .payment-option:hover {
-            background-color: #e9e9e9;
+            transition: all 0.3s ease;
+        }
+        .payment-option {
+            position: relative; /* Position for the custom radio button */
+            padding-left: 30px; /* Space for the custom radio button */
         }
 
         .payment-option input[type="radio"] {
-            margin-right: 10px;
+            position: absolute; /* Remove it from the flow */
+            opacity: 0; /* Hide the original radio button */
+        }
+
+        .payment-option input[type="radio"] + label::before {
+            content: '';
+            position: absolute;
+            left: 0; /* Align it to the left */
+            top: 50%; /* Center vertically */
+            transform: translateY(-50%); /* Adjust for vertical centering */
+            width: 16px; /* Set custom width */
+            height: 16px; /* Set custom height */
+            border: 2px solid #007bff; /* Border color */
+            border-radius: 50%; /* Make it round */
+            background-color: white; /* Background color */
+            cursor: pointer; /* Change cursor on hover */
+        }
+
+        .payment-option input[type="radio"]:checked + label::before {
+            background-color: #007bff; /* Background color when checked */
+            border: 2px solid #007bff; /* Border color when checked */
+        }
+
+        .payment-option:hover {
+            background-color: #e9ecef;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         .payment-option label {
             margin-bottom: 0;
             display: inline;
+            font-weight: 500;
+            text-align: left;
         }
-
         .place-order-btn {
             background-color: #3498db;
             color: white;
             padding: 15px 20px;
-            border: none;
+
             border-radius: 4px;
             cursor: pointer;
             font-size: 18px;
-            width: 100%;
+
+            text-align: center;
+            justify-content: center;
+            align-items: center;
             transition: background-color 0.3s;
         }
-
         .place-order-btn:hover {
             background-color: #2980b9;
         }
 
-        .back-to-shopping {
-            margin-bottom: 20px;
-        }
-
-        .back-to-shopping a {
-            text-decoration: none;
-            color: #3498db;
-            font-weight: bold;
-            transition: color 0.3s;
-        }
-
-        .back-to-shopping a:hover {
-            color: #2980b9;
-        }
     </style>
 </head>
 <body>
@@ -178,7 +187,7 @@
             <a href="/products">← Back To Shopping</a>
         </div>
     <h2>Bill To:</h2>
-    <form th:action="@{/cart/receipt}" method="post">
+    <form id="billingForm" name="billingForm" th:action="@{/cart/receipt}" method="post">
         <div class="form-group">
             <label for="name">Full Name:</label>
             <input type="text" id="name" name="name" required>
@@ -189,7 +198,8 @@
         </div>
         <div class="form-group">
             <label for="phone">Phone:</label>
-            <input type="tel" id="phone" name="phone" required>
+            <input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"  required>
+            <label style="font-style: italic;font-size:10px;">example: 111-111-1111</label>
         </div>
         <div class="form-group">
             <label for="address">Address:</label>
@@ -205,7 +215,7 @@
         </div>
         <div class="form-group">
             <label for="zip">ZIP Code:</label>
-            <input type="text" id="zip" name="zip" required>
+            <input type="number" id="zip" name="zip" required>
         </div>
 
         <h2>Order Summary</h2>
@@ -213,16 +223,19 @@
             <table>
                 <tr>
                     <th>Product</th>
-                    <th> </th>
+                    <th colspan="7">Description</th>
                     <th>Quantity</th>
                     <th>Price</th>
                     <th>Total</th>
                 </tr>
                 <tr th:each="item : ${cart.items}">
-                    <td colspan="2"><div><img th:src="${item.product.image}" alt="Product Image" style="width: 50px; height: 50px">
-                        <span th:text="${item.product.description}"></span></div></td>
+                    <td>
+                        <img th:src="${item.product.image}" alt="Product Image" style="width: 50px; height: 50px;"></td>
+                    <td colspan="7">
+                        <span th:text="${item.product.description}"></span></td>
                     <td th:text="${item.quantity}">Quantity</td>
                     <td th:text="${item.price}">Price</td>
+
                     <td th:text="${item.totalPrice}">Total</td>
                 </tr>
             </table>
@@ -245,33 +258,35 @@
         <h2>Payment Method</h2>
         <div class="payment-options">
             <div class="payment-option">
-                <input type="radio" id="cod" name="payment" value="cod">
+                <input type="radio" id="cod" name="payment" value="cod" checked>
                 <label for="cod">Cash on Delivery</label>
             </div>
             <div class="payment-option">
-                <input type="radio" id="credit-card" name="payment" value="credit-card">
+                <input type="radio" id="credit-card" name="payment" value="credit-card" disabled>
                 <label for="credit-card">Credit Card</label>
             </div>
             <div class="payment-option">
-                <input type="radio" id="debit-card" name="payment" value="debit-card">
+                <input type="radio" id="debit-card" name="payment" value="debit-card" disabled>
                 <label for="debit-card">Debit Card</label>
             </div>
             <div class="payment-option">
-                <input type="radio" id="paypal" name="payment" value="paypal">
+                <input type="radio" id="paypal" name="payment" value="paypal" disabled>
                 <label for="paypal">PayPal</label>
             </div>
             <div class="payment-option">
-                <input type="radio" id="bank-transfer" name="payment" value="bank-transfer">
+                <input type="radio" id="bank-transfer" name="payment" value="bank-transfer" disabled>
                 <label for="bank-transfer">Bank Transfer</label>
             </div>
         </div>
 
-        <button type="submit" class="place-order-btn">Place Order</button>
+        <input type="hidden" name="billingAmount" th:value="${#numbers.formatDecimal(cart.totalPriceWithTax, 1, 2)}">
+        <div style="display:flex;text-align: center;justify-content: center;align-items: center;"><button type="submit" class="place-order-btn">Place Order</button></div>
     </form>
     </div>
 </div>
 <!-- Footer Section -->
 <div th:replace="~{fragments/footer :: footer}"></div>
 <script src="../js/dropdown.js"></script>
+
 </body>
 </html>

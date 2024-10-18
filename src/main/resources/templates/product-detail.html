@@ -75,24 +75,26 @@
         .quantity-control {
             display: flex;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
+
         }
 
         .quantity-btn {
-            background-color: #f0f0f0;
+            background-color: #3498db;
+            color: white;
             border: none;
-            padding: 10px 15px;
-            font-size: 18px;
+            padding: 5px 10px;
             cursor: pointer;
+            font-size: 16px;
+            width: 30px;
+            height: 30px;
         }
 
         .quantity-input {
-            width: 50px;
+            width:40px;
             text-align: center;
-            font-size: 18px;
             margin: 0 10px;
-            border: 1px solid #ddd;
-            padding: 5px;
+
         }
 
         .add-to-cart-btn {
@@ -128,14 +130,17 @@
             <p class="product-description" th:text="${product.description}"></p>
 
             <form th:action="@{/cart/add-cart}" method="post">
+                <div class="quantity-control">
                 <button class="quantity-btn" id="quantity-btn-decrease" type="button">-</button>
                 <input type="hidden" name="productId" th:value="${product.id}"/>
 
-                <input type="number" class="quantity-input" name="quantity" id="quantity-input" min="1" value="1"/>
+                <input type="number" class="quantity-input" name="quantity" id="quantity-input" min="1" value="1">
                 <button class="quantity-btn" id="quantity-btn-increase" type="button">+</button>
+                </div>
                 <button class="add-to-cart-btn" type="submit">
                     Add To Cart
                 </button>
+
             </form>
 
         </div>
@@ -165,6 +170,6 @@
 </script>
 <!-- Footer Section -->
 <div th:replace="~{fragments/footer :: footer}"></div>
-<script src="../js/dropdown.js"></script>
+<script src="/js/dropdown.js"></script>
 </body>
 </html>

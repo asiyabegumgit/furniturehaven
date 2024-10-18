@@ -25,8 +25,8 @@ public class SecurityConfig {
         http
                 .cors(withDefaults())
                 .authorizeRequests(authorizeRequests -> authorizeRequests
-                        .requestMatchers("/", "/css/**", "/js/**", "/images/**","/login","/home","/home/**","/products", "/products/**","/products/category/**", "/products/search/**","/services","/privacy","/signup","/about","/receipt").permitAll()  // Public access
-                        .requestMatchers( "/logout").hasAnyRole("CUSTOMER", "ADMIN")
+                        .requestMatchers("/", "/css/**", "/js/**", "/images/**", "/login", "/reset-password","/forgot-password","/home", "/home/**", "/products", "/products/**", "/products/category/**", "/products/search/**", "/services", "/privacy", "/signup", "/about", "/receipt").permitAll()  // Public access
+                        .requestMatchers("/logout").hasAnyRole("CUSTOMER", "ADMIN")
                         .requestMatchers("/cart/**").hasRole("CUSTOMER")
                         .requestMatchers("/admin").hasRole("ADMIN")
 
@@ -38,13 +38,12 @@ public class SecurityConfig {
                         .successHandler((request, response, authentication) -> {
                             authentication.getAuthorities().forEach(grantedAuthority -> {
                                 String role = grantedAuthority.getAuthority();
-                                System.out.println("0000p"+authentication.getName());
+
                                 try {
 
-                                   if (role.equals("ROLE_ADMIN")) {
+                                    if (role.equals("ROLE_ADMIN")) {
                                         response.sendRedirect("/admin");
-                                    }
-                                    else
+                                    } else
                                         response.sendRedirect("/home");
                                 } catch (Exception e) {
                                     e.printStackTrace();

@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/style.css"/>
+    <link rel="stylesheet" href="/css/style.css"/>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -77,7 +77,9 @@
             padding: 10px;
             border-radius: 4px;
             cursor: pointer;
+            text-align: center;
             margin-top: 10px;
+            display:inline-block;
         }
 
         .input-button:hover {
@@ -153,14 +155,14 @@
             </div>
             <h2>Login</h2>
             <form id="login-form" class="login-form" th:action="@{/login}" method="post">
-                <input class="input-box" type="email" id="email" name="username" placeholder="Username" value="admin@furniturehaven.com"
+                <input class="input-box" type="email" id="email" name="username" placeholder="Username" value="asiya@gmail.com"
                        required>
-                <input class="input-box" type="password" id="password" name="password" placeholder="Password" value="adminUser123" required>
+                <input class="input-box" type="password" id="password" name="password" placeholder="Password" value="Aasiya123" required>
                 <button class="input-button" type="submit">Login</button>
 
             </form>
             <div class="links">
-                <a href="#" id="forgot-password">Forgot Password?</a>
+                <a th:href="@{/forgot-password}" id="forgot-password">Forgot Password?</a>
             </div>
             <div class="signup-container">
                 <span>New Customer?</span>
