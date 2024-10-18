@@ -89,19 +89,19 @@ To set up the project locally, follow these steps:
 
 1. Clone the repository:
    
-   git clone <repository-url>
-   
-Navigate to the project directory:
-cd furniture-haven
+   git clone https://github.com/asiyabegumgit/furniturehaven.git
+  
 
-Build the project using Maven:
-bash
+## Running the Application
 
-mvn clean install
-Usage
-To run the application, use the following command:
+1. **Locate the Main Class**:
+   In the `src/main/java/com/example/furniturehaven` directory, find the class named `FurnitureHavenApplication.java` (or similar).
 
-mvn spring-boot:run
-Visit http://localhost:8080 in your web browser to access the application.
+2. **Run the Application**:
+   - **In IntelliJ**: Right-click the `FurnitureHavenApplication.java` file and select **Run 'FurnitureHavenApplication.main()'**.
+   - **In Eclipse**: Right-click the `FurnitureHavenApplication.java` file and select **Run As > Java Application**.
+
+3. **Access the Application**:
+   Visit http://localhost:8080 in your web browser to access the application.
 
 
