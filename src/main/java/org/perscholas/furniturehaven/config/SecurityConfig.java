@@ -25,7 +25,7 @@ public class SecurityConfig {
         http
                 .cors(withDefaults())
                 .authorizeRequests(authorizeRequests -> authorizeRequests
-                        .requestMatchers("/", "/css/**", "/js/**", "/images/**", "/login", "/reset-password","/forgot-password","/home", "/home/**", "/products", "/products/**", "/products/category/**", "/products/search/**", "/services", "/privacy", "/signup", "/about", "/receipt").permitAll()  // Public access
+                        .requestMatchers("/", "/css/**", "/js/**", "/images/**", "/login", "/reset-password","/forgot-password","/home", "/home/**", "/products", "/products/**", "/products/category/**", "/products/search/**", "/services", "/privacy", "/faq","return-policy","/shipping","/signup", "/about").permitAll()  // Public access
                         .requestMatchers("/logout").hasAnyRole("CUSTOMER", "ADMIN")
                         .requestMatchers("/cart/**").hasRole("CUSTOMER")
                         .requestMatchers("/admin").hasRole("ADMIN")
