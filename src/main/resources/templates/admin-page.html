@@ -140,7 +140,7 @@
     <div id="list-product">
         <div class="product-content" >
             <h1>Product List</h1>
-            <form th:action="@{/products}" method="post">
+
                 <table>
                     <thead>
                     <tr>
@@ -151,7 +151,7 @@
                         <th>Category</th>
                         <th>Brand</th>
                         <th>Rating</th>
-                        <th colspan="2">Actions</th>
+                        <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -160,20 +160,20 @@
                         <td th:text="${product.description}"></td>
                         <td th:text="${product.image}"></td>
                         <td th:text="${product.price}"></td>
-                        <td th:text="${product.category}"></td>
+                        <td th:text="${product.category.categoryName}"></td>
                         <td th:text="${product.brand}"></td>
                         <td th:text="${product.rating}"></td>
                         <td>
-                            <button type="submit" name="action" value="edit">Edit</button></td>
-                        <td>
-                            <input type="hidden" name="productId" th:value="${product.id}">
-
-                            <button type="submit" name="action" value="delete">Delete</button>
+                            <form th:action="@{/products}" method="post" style="display: flex;">
+                                <input type="hidden" name="productId" th:value="${product.id}" />
+                                <button type="submit" name="action" value="edit">Edit</button>
+                                <button type="submit" name="action" value="delete">Delete</button>
+                            </form>
                         </td>
                     </tr>
                     </tbody>
                </table>
-            </form>
+
         </div>
         <div class="pagination">
     <span th:if="${products.hasPrevious()}">
