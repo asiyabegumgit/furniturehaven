@@ -119,29 +119,31 @@ public class ProductController {
                 Product product=optionalProduct.get();
                 log.debug("Editing product: {}", product);
                 model.addAttribute("product", product);
+                return "product-form";
                 }
             else{
                 log.warn("Product not found for editing, id: {}", productId);
+                return "redirect:/products";
             }
-            return "product-form";
+
         }
-        else{
+        else {
             log.info("Deleting product with id: {}", productId);
             productService.deleteProduct(productId);
-
+            log.info("Product with id:{} deleted", productId);
         }
-        List<Category> categories = categoryService.getAllCategories();
-        model.addAttribute("categories", categories);
+           List<Category> categories = categoryService.getAllCategories();
+           model.addAttribute("categories", categories);
 
-        return "redirect:/admin";
+           return "redirect:/admin";
 
 
     }
     @PostMapping("/update")
-    public String updateProduct(@RequestParam("id") Long productId,@ModelAttribute("product") Product product) {
-        log.info("Updating product with id: {}", productId);
-        productService.updateProduct(productId, product);
-        log.debug("Product updated successfully: {}", product);
+    public String updateProduct(@ModelAttribute("product") Product product) {
+        log.info("Updating product with id: {}", product.getId());
+        productService.updateProduct(product.getId(), product);
+        log.info("Product updated successfully: {}", product);
         return "redirect:/admin";
     }
     @GetMapping("/upload")
