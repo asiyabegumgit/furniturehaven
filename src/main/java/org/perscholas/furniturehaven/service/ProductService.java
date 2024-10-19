@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 @Slf4j
@@ -74,30 +75,37 @@ public class ProductService {
 
     public Product updateProduct(Long id, Product updatedProduct) {
         log.info("Updating product with id: {}", id);
-        try {
-            Product savedProduct = productRepository.findById(id)
-                    .map(product -> {
-                        product.setName(updatedProduct.getName());
-                        product.setDescription(updatedProduct.getDescription());
-                        product.setPrice(updatedProduct.getPrice());
-                        product.setCategory(updatedProduct.getCategory());
-                        product.setCategoryId(updatedProduct.getCategoryId());
-                        product.setBrand(updatedProduct.getBrand());
-                        product.setImage(updatedProduct.getImage());
-                        product.setRating(updatedProduct.getRating());
-                        log.debug("Product details updated: {}", product);
-                        return productRepository.save(product);
-                    })
-                    .orElseThrow(() -> {
-                        log.warn("Attempted to update non-existent product with id: {}", id);
-                        return new RuntimeException("Product not found");
-                    });
-            log.info("Product updated successfully: {}", savedProduct.getId());
-            return savedProduct;
-        } catch (Exception e) {
-            log.error("Error updating product with id: {}", id, e);
-            throw e;
+        Optional<Category> optionalCategory = categoryRepository.findById(updatedProduct.getCategoryId());
+        if(optionalCategory.isPresent()) {
+            Category category = optionalCategory.get();
+
+            try {
+                Product savedProduct = productRepository.findById(id)
+                        .map(product -> {
+                            product.setName(updatedProduct.getName());
+                            product.setDescription(updatedProduct.getDescription());
+                            product.setPrice(updatedProduct.getPrice());
+                            product.setCategory(category);
+                            product.setCategoryId(updatedProduct.getCategoryId());
+                            product.setBrand(updatedProduct.getBrand());
+                            product.setImage(updatedProduct.getImage());
+                            product.setRating(updatedProduct.getRating());
+
+                            log.debug("Product details updated: {}", product);
+                            return productRepository.save(product);
+                        })
+                        .orElseThrow(() -> {
+                            log.warn("Attempted to update non-existent product with id: {}", id);
+                            return new RuntimeException("Product not found");
+                        });
+                log.info("Product updated successfully: {}", savedProduct.getId());
+                return savedProduct;
+            } catch (Exception e) {
+                log.error("Error updating product with id: {}", id, e);
+                throw e;
+            }
         }
+        return null;
     }
 
     public List<Product> saveProducts(List<Product> products) {
